@@ -1,58 +1,191 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=gb2312">
-<title>便民导航</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>穹游便民服务 - 完整还原版</title>
 <style>
-body {
-  background-color: #c8c8c8;
-  font-family: "Microsoft YaHei";
-}
-h2 {
-  color: #225599;
-  text-align: center;
-}
-table {
-  margin: 0 auto;
-}
-td {
-  padding: 8px;
-}
-button {
-  width: 220px;
-  height: 55px;
-  font-size: 16px;
-  background-color: #3377bb;
-  color: white;
-  border: 0;
-  border-radius: 12px;
-  box-shadow: 3px 3px 8px #999;
-  cursor: pointer;
-}
+  /* 全局重置 */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
+  /* 背景容器 */
+  body {
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  /* 主卡片容器 */
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+  }
+
+  /* 标题区 */
+  .card-header {
+    padding: 24px 20px 16px;
+    text-align: center;
+    border-bottom: 1px solid #eef0f3;
+  }
+  .card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1d2129;
+    margin-bottom: 6px;
+  }
+  .card-subtitle {
+    font-size: 14px;
+    color: #6e7683;
+  }
+
+  /* 功能网格布局 */
+  .features {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* 功能按钮样式 */
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 12px;
+    background: #f8f9fa;
+    border: 1px solid #e8ecec;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .feature-item:hover {
+    background: #e8f0ff;
+    border-color: #0066cc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+  }
+
+  /* 图标样式 */
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+    color: #0066cc;
+  }
+
+  /* 文字样式 */
+  .feature-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1d2129;
+    margin-bottom: 4px;
+  }
+  .feature-desc {
+    font-size: 12px;
+    color: #6e7683;
+  }
+
+  /* 响应式适配 */
+  @media (max-width: 480px) {
+    .features { grid-template-columns: 1fr; }
+    .card { padding: 16px; }
+  }
 </style>
 </head>
 <body>
-<center>
-<h2>穹游便民导航</h2>
 
-<table align="center" cellpadding="5">
-  <tr>
-    <td><a href=" " target="_blank"><button>鞍山公积金</button></a ></td>
-    <td><a href="http://ybj.anshan.gov.cn/" target="_blank"><button>鞍山医保局</button></a ></td>
-  </tr>
-  <tr>
-    <td><a href="https://ln.122.gov.cn/" target="_blank"><button>鞍山交管122</button></a ></td>
-    <td><a href="https://spj.anshan.gov.cn/" target="_blank"><button>鞍山政务服务</button></a ></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.12306.cn/" target="_blank"><button>12306购票</button></a ></td>
-    <td><a href="https://www.weather.com.cn/" target="_blank"><button>全国天气</button></a ></td>
-  </tr>
-  <tr>
-    <td><a href="https://www.12315.cn/" target="_blank"><button>12315维权</button></a ></td>
-    <td><a href="https://mp.weixin.qq.com/s/AIbLeHOprqezR5oQfsj5kA" target="_blank"><button>年卡办理</button></a ></td>
-  </tr>
-</table>
+<div class="card">
+  <!-- 头部标题 -->
+  <div class="card-header">
+    <h1 class="card-title">穹游便民服务</h1>
+    <p class="card-subtitle">一站式生活服务中心</p >
+  </div>
 
-</center>
+  <!-- 功能列表 -->
+  <div class="features">
+    
+    <!-- 年卡办理 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 3h18v18H3V3z"></path>
+      </svg>
+      <div class="feature-title">年卡办理</div>
+      <div class="feature-desc">官方年卡服务入口</div>
+    </div>
+
+    <!-- 鞍山公积金 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <div class="feature-title">鞍山公积金</div>
+      <div class="feature-desc">公积金政策解读</div>
+    </div>
+
+    <!-- 鞍山医保局 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M5 12a2 2 0 01-2 2v2a2 2 0 002 2h14a2 2 0 002-2v-2a2 2 0 01-2-2M5 12V8a2 2 0 012-2h10a2 2 0 012 2v4M5 12v2M19 12v2"></path>
+      </svg>
+      <div class="feature-title">鞍山医保局</div>
+      <div class="feature-desc">医疗保障服务</div>
+    </div>
+
+    <!-- 鞍山交管122 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2v20M2 12h20"></path>
+      </svg>
+      <div class="feature-title">鞍山交管122</div>
+      <div class="feature-desc">交通违法处理</div>
+    </div>
+
+    <!-- 鞍山政务 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+      <div class="feature-title">鞍山政务</div>
+      <div class="feature-desc">政务服务中心</div>
+    </div>
+
+    <!-- 12306购票 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <div class="feature-title">12306购票</div>
+      <div class="feature-desc">火车票预订服务</div>
+    </div>
+
+    <!-- 全国天气 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3v18M8 12h8M12 2v20M2 12h20"></path>
+      </svg>
+      <div class="feature-title">全国天气</div>
+      <div class="feature-desc">气象信息服务</div>
+    </div>
+
+    <!-- 12315维权 -->
+    <div class="feature-item">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <div class="feature-title">12315维权</div>
+      <div class="feature-desc">消费者权益保护</div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
