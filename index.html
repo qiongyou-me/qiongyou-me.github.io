@@ -1,5 +1,4 @@
-﻿穹游 · 私密系统解锁解锁进入系统
-外卖年卡公积金政务清空全部历史
+﻿外卖年卡公积金政务清空全部历史
 昼夜主题切换随机智能跳转批量一键全开自定义新增链接全局数据备份导入恢复数据
 全部聚合生活服务旅游业务政务民生工具查询私人自定义
 生活服务
@@ -35,8 +34,6 @@ const baseLinkData = [
   {name:"电子税务局",url:"https://etax.chinatax.gov.cn/",py:"shuiwu",type:"tool",count:0}
 ];
 
-const SYSTEM_PASSWORD = "66";
-
 function getStorage(key) { return JSON.parse(localStorage.getItem(key)) }
 function setStorage(key,val) { localStorage.setItem(key,JSON.stringify(val)) }
 
@@ -46,16 +43,6 @@ function systemInit() {
   if(!getStorage("sysTheme")) setStorage("sysTheme","dark")
   if(!getStorage("sysHistory")) setStorage("sysHistory",[])
   if(getStorage("sysTheme") === "light") document.body.classList.add("light-theme")
-}
-
-function systemUnlock(){
-  const inputPwd = 
-document.getElementById("pwdInput").value.trim()
-  if(inputPwd === SYSTEM_PASSWORD){
-    document.getElementById("lockPage").style.display = "none"
-  }else{
-    alert("系统密码错误，禁止访问私密系统！")
-  }
 }
 
 function renderAll(){
@@ -108,7 +95,8 @@ searchInput.oninput = () => {
     return
   }
   matchTarget = res[0]
-  searchTip.innerHTML = "智能匹配："+ res.map(i=>`<span onclick='jumpLink("${i.url}")' style='color:#ffe899;cursor:pointer;margin:0 8px'>${i.name}</span>`).join("")
+  searchTip.innerHTML = "智能匹配："+ res.map(i=>`<span 
+onclick='jumpLink("${i.url}")' style='color:#ffe899;cursor:pointer;margin:0 8px'>${i.name}</span>`).join("")
 }
 
 searchInput.onkeydown = (e)=>{
