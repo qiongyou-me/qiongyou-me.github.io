@@ -3,78 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穹游为您服务</title>
+<title>穹游导航</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#0b182b;
-  color:#f2f9ff;
-  font-family:"Microsoft YaHei",sans-serif;
-  padding:20px;
-}
-.container{
-  max-width:900px;
-  margin:0 auto;
-  background:rgba(26,58,95,0.35);
-  border-radius:20px;
-  padding:24px;
-  backdrop-filter:blur(18px);
-}
-h1{
-  text-align:center;
-  color:#ffe899;
-  margin-bottom:20px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-  gap:12px;
-}
-.item{
-  background:rgba(26,58,95,0.4);
-  color:#f2f9ff;
-  text-decoration:none;
-  text-align:center;
-  padding:14px 8px;
-  border-radius:14px;
-  transition:0.3s;
-}
-.item:hover{
-  background:rgba(42,74,115,0.6);
-  transform:translateY(-2px);
-}
-.primary{
-  color:#ffe899;
-  font-weight:bold;
-}
-@media(max-width:600px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b182b;color:#f2f9ff;font-family:"Microsoft YaHei",sans-serif;padding:20px}
+  .box{max-width:800px;margin:0 auto;background:rgba(26,58,95,.35);border-radius:16px;padding:24px}
+  h1{text-align:center;color:#ffe899;margin-bottom:20px}
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  a{display:block;background:rgba(26,58,95,.4);color:#fff;text-align:center;padding:14px;border-radius:12px;text-decoration:none}
+  a:hover{background:rgba(42,74,115,.6)}
+  .hot{color:#ffe899;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>穹游为您服务</h1>
-  <div class="grid">
-    <a class="item" href=" " target="_blank">美团外卖</a >
-    <a class="item" href="https://www.ele.me/" target="_blank">饿了么</a >
-    <a class="item primary" href="/qian-shan-nian-ka.html" target="_blank">千山年卡</a >
-    <a class="item primary" href="https://as8890.asjtjt.com/" target="_blank">8890民生</a >
-    <a class="item primary" href="http://asgjj.anshan.gov.cn/" target="_blank">鞍山公积金</a >
-    <a class="item" href="http://spj.anshan.gov.cn/" target="_blank">政务服务</a >
-    <a class="item" href="http://ybj.anshan.gov.cn/" target="_blank">鞍山医保局</a >
-    <a class="item" href="https://ln.122.gov.cn/" target="_blank">交管122</a >
-    <a class="item" href="https://www.12306.cn/" target="_blank">12306购票</a >
-    <a class="item" href="https://www.kuaidi100.com/" target="_blank">快递查询</a >
-    <a class="item" href="https://ditu.amap.com/" target="_blank">高德地图</a >
-    <a class="item" href="https://map.baidu.com/" target="_blank">百度地图</a >
-    <a class="item" href="https://www.weather.com.cn/" target="_blank">天气查询</a >
-    <a class="item" href="https://www.qcc.com" target="_blank">企查查</a >
-    <a class="item" href="https://www.tianyancha.com" target="_blank">天眼查</a >
-    <a class="item" href="https://aiqicha.baidu.com" target="_blank">爱企查</a >
-    <a class="item" href="https://gjzwfw.www.gov.cn/" target="_blank">国家政务平台</a >
-    <a class="item" href="https://www.12315.cn/" target="_blank">12315维权</a >
-    <a class="item" href="https://etax.chinatax.gov.cn/" target="_blank">电子税务局</a >
+<div class="box">
+  <h1>穹游便民导航</h1>
+  <div class="links">
+    <a href=" " target="_blank" class="hot">美团外卖</a >
+    <a href="https://www.qianshanjingqu.com/" target="_blank" class="hot">千山年卡官网</a >
+    <a href="https://www.lnzwfw.gov.cn/" target="_blank" class="hot">辽宁8890平台</a >
+    <a href="https://www.ele.me/" target="_blank">饿了么</a >
+    <a href="http://asgjj.anshan.gov.cn/" target="_blank">鞍山公积金</a >
+    <a href="https://www.12306.cn/" target="_blank">12306</a >
+    <a href="https://map.baidu.com/" target="_blank">百度地图</a >
+    <a href="https://www.weather.com.cn/" target="_blank">天气</a >
   </div>
 </div>
 </body>
