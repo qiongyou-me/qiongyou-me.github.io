@@ -1,267 +1,201 @@
-﻿外卖年卡公积金政务清空全部历史
-昼夜主题切换随机智能跳转批量一键全开自定义新增链接全局数据备份导入恢复数据
-全部聚合生活服务旅游业务政务民生工具查询私人自定义
-生活服务
-旅游业务
-政务民生
-工具查询
-生活服务
-旅游业务
-政务民生
-工具查询
-私人自定义链接
-新增私人专属链接
-确认添加取消
-const baseLinkData = [
-  {name:"美团外卖",url:"https://waimai.meituan.com/",py:"waimai",type:"life",count:0},
-  {name:"饿了么",url:"https://www.ele.me/",py:"eleme",type:"life",count:0},
-  {name:"千山年卡",url:"/qian-shan-nian-ka.html",py:"nianka",type:"travel",count:0},
-  {name:"8890民生",url:"https://as8890.asjtjt.com/",py:"8890",type:"gov",count:0},
-  {name:"鞍山公积金",url:"http://asgjj.anshan.gov.cn/",py:"gjj",type:"gov",count:0},
-  {name:"鞍山政务服务",url:"http://spj.anshan.gov.cn/",py:"zhengwu",type:"gov",count:0},
-  {name:"鞍山医保局",url:"http://ybj.anshan.gov.cn/",py:"yibao",type:"gov",count:0},
-  {name:"交管122",url:"https://ln.122.gov.cn/",py:"122",type:"gov",count:0},
-  {name:"12306购票",url:"https://www.12306.cn/",py:"12306",type:"life",count:0},
-  {name:"快递查询",url:"https://www.kuaidi100.com/",py:"kuaidi",type:"life",count:0},
-  {name:"高德地图",url:"https://ditu.amap.com/",py:"amap",type:"travel",count:0},
-  {name:"百度地图",url:"https://map.baidu.com/",py:"baidu",type:"travel",count:0},
-  {name:"天气查询",url:"https://www.weather.com.cn/",py:"tianqi",type:"travel",count:0},
-  {name:"企查查",url:"https://www.qcc.com",py:"qcc",type:"tool",count:0},
-  {name:"天眼查",url:"https://www.tianyancha.com",py:"tyc",type:"tool",count:0},
-  {name:"爱企查",url:"https://aiqicha.baidu.com",py:"aqc",type:"tool",count:0},
-  {name:"国家政务平台",url:"https://gjzwfw.www.gov.cn/",py:"guojia",type:"tool",count:0},
-  {name:"12315维权",url:"https://www.12315.cn/",py:"12315",type:"tool",count:0},
-  {name:"电子税务局",url:"https://etax.chinatax.gov.cn/",py:"shuiwu",type:"tool",count:0}
-];
-
-function getStorage(key) { return JSON.parse(localStorage.getItem(key)) }
-function setStorage(key,val) { localStorage.setItem(key,JSON.stringify(val)) }
-
-function systemInit() {
-  if(!getStorage("sysLinks")) setStorage("sysLinks",baseLinkData)
-  if(!getStorage("userLinks")) setStorage("userLinks",[])
-  if(!getStorage("sysTheme")) setStorage("sysTheme","dark")
-  if(!getStorage("sysHistory")) setStorage("sysHistory",[])
-  if(getStorage("sysTheme") === "light") document.body.classList.add("light-theme")
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>便民服务中心</title>
+<style>
+/* 全局重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei", Arial, sans-serif;
 }
 
-function renderAll(){
-  const sysLinks = getStorage("sysLinks")
-  const userLinks = getStorage("userLinks")
-
-  function renderDom(id,arr,isPrimary=false){
-    const dom = document.getElementById(id)
-    dom.innerHTML = arr.map(item=>{
-      const hotTag = item.count >=5 ? `<span class="link-hot-badge">热门</span>` : ""
-      return `<a class="link-card ${isPrimary?'primary':''}" href=" " target="_blank" onclick="clickCountRecord('${item.url}')">${item.name}${hotTag}</a >`
-    }).join("")
-  }
-
-  renderDom("grid-life",sysLinks.filter(x=>x.type==="life"))
-  renderDom("grid-travel",sysLinks.filter(x=>x.type==="travel"),true)
-  renderDom("grid-gov",sysLinks.filter(x=>x.type==="gov"),true)
-  renderDom("grid-tool",sysLinks.filter(x=>x.type==="tool"))
-
-  renderDom("grid-life-only",sysLinks.filter(x=>x.type==="life"))
-  renderDom("grid-travel-only",sysLinks.filter(x=>x.type==="travel"),true)
-  renderDom("grid-gov-only",sysLinks.filter(x=>x.type==="gov"),true)
-  renderDom("grid-tool-only",sysLinks.filter(x=>x.type==="tool"))
-
-  renderDom("grid-user",userLinks)
+body {
+  background: #f0f5ff;
+  padding: 20px 10px;
 }
 
-function clickCountRecord(url){
-  let list = getStorage("sysLinks")
-  const idx = list.findIndex(x=>x.url === url)
-  if(idx !== -1){
-    list[idx].count +=1
-    setStorage("sysLinks",list)
-  }
-  addSearchHistory(url)
+/* 卡片容器 */
+.card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 32px 28px;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: 0 8px 26px rgba(120, 140, 180, 0.13);
 }
 
-const searchInput = document.getElementById("search-input")
-const searchTip = document.getElementById("searchTip")
-let matchTarget = null
-
-searchInput.oninput = () => {
-  const keyword = searchInput.value.toLowerCase().trim()
-  if(!keyword){searchTip.innerHTML="";matchTarget=null;return}
-  const allLink = [...getStorage("sysLinks"),...getStorage("userLinks")]
-  const res = allLink.filter(item=> item.name.includes(keyword) || (item.py&&item.py.includes(keyword)))
-  if(res.length ===0){
-    searchTip.innerHTML = "<span style='color:#ff7777'>暂无匹配结果</span>"
-    matchTarget=null
-    return
-  }
-  matchTarget = res[0]
-  searchTip.innerHTML = "智能匹配："+ res.map(i=>`<span 
-onclick='jumpLink("${i.url}")' style='color:#ffe899;cursor:pointer;margin:0 8px'>${i.name}</span>`).join("")
+/* 标题区域 */
+.title-box {
+  text-align: center;
+  margin-bottom: 34px;
 }
 
-searchInput.onkeydown = (e)=>{
-  if(e.key === "Enter" && matchTarget) jumpLink(matchTarget.url)
-  if(e.key === "Escape") {searchInput.value="";searchTip.innerHTML=""}
+.title {
+  font-size: 22px;
+  color: #3c4866;
+  margin-bottom: 16px;
 }
 
-document.querySelectorAll("[data-key]").forEach(el=>{
-  el.onclick = ()=>{
-    searchInput.value = el.dataset.key
-    searchInput.oninput()
-  }
-})
-
-function jumpLink(url){
-  window.open(url,"_blank")
-  clickCountRecord(url)
-  searchInput.value = ""
-  searchTip.innerHTML = ""
+.title-line {
+  width: 76px;
+  height: 2px;
+  margin: 0 auto;
+  background: rgba(114, 178, 255, 0.65);
+  border-radius: 1px;
 }
 
-function addSearchHistory(url){
-  const all = [...getStorage("sysLinks"),...getStorage("userLinks")]
-  const target = all.find(x=>x.url === url) || {name:url,url:url}
-  let history = getStorage("sysHistory")
-  history = [target,...history.filter(x=>x.url!==url)].slice(0,10)
-  setStorage("sysHistory",history)
-  renderHistory()
+/* 网格布局 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-function renderHistory(){
-  const history = getStorage("sysHistory")
-  const dom = document.getElementById("historyList")
-  dom.innerHTML = history.map(item=>`<span style="background:rgba(26,58,95,0.4);padding:4px 10px;border-radius:8px;color:#a0e8ff;cursor:pointer;font-size:13px" onclick="jumpLink('${item.url}')">${item.name}</span>`).join("")
+/* 按钮通用样式 */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  height: 70px;
+  border-radius: 14px;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
 }
 
-function clearAllHistory(){
-  setStorage("sysHistory",[])
-  renderHistory()
+/* 主要按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #8d97ff, #72b2ff);
+  color: #ffffff;
 }
 
-document.querySelectorAll(".tab-item").forEach(tab=>{
-  tab.onclick = ()=>{
-    document.querySelectorAll(".tab-item").forEach(t=>t.classList.remove("active"))
-    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("show"))
-    tab.classList.add("active")
-    document.getElementById(tab.dataset.target).classList.add("show")
-  }
-})
-
-function switchTheme(){
-  document.body.classList.toggle("light-theme")
-  const now = document.body.classList.contains("light-theme") ? "light" : "dark"
-  setStorage("sysTheme",now)
+/* 次要按钮 */
+.btn-secondary {
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+  color: #5a5a5a;
 }
 
-function openRandomLink(){
-  const all = [...getStorage("sysLinks"),...getStorage("userLinks")]
-  const randomItem = all[Math.floor(Math.random()*all.length)]
-  jumpLink(randomItem.url)
+.btn-secondary .icon {
+  color: #6b88c7;
 }
 
-function batchOpenAll(){
-  if(!confirm("确认批量打开当前分类全部链接？")) return
-  const activeTab = document.querySelector(".tab-item.active").dataset.target
-  let targetList = []
-  if(activeTab === "allPanel") targetList = getStorage("sysLinks")
-  else if(activeTab === "userPanel") targetList = getStorage("userLinks")
-  else targetList = getStorage("sysLinks").filter(x=>x.type === activeTab.replace("Panel",""))
-  targetList.forEach((item,idx)=> setTimeout(()=>window.open(item.url,"_blank"),idx*300))
+/* 图标样式 */
+.icon {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
 }
 
-function showAddLinkPopup(){document.getElementById("addMask").style.display="flex"}
-function closeAddMask(){document.getElementById("addMask").style.display="none"}
-function confirmAddLink(){
-  const name = document.getElementById("newLinkName").value.trim()
-  const url = document.getElementById("newLinkUrl").value.trim()
-  if(!name||!url) return alert("请填写完整名称与网址")
-  let user = getStorage("userLinks")
-  user.unshift({name,url,count:0})
-  setStorage("userLinks",user)
-  closeAddMask()
-  renderAll()
+.icon-light {
+  stroke-width: 1.5px;
 }
 
-function exportAllData(){
-  const data = {
-    sysLinks:getStorage("sysLinks"),
-    userLinks:getStorage("userLinks"),
-    sysHistory:getStorage("sysHistory"),
-    sysTheme:getStorage("sysTheme")
-  }
-  const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"})
-  const a = document.createElement("a")
-  a.href = URL.createObjectURL(blob)
-  a.download = "穹游高端导航_全局备份.json"
-  a.click()
+.icon-up {
+  transform: translateY(-1px);
 }
 
-function importBackupData(){
-  const input = document.createElement("input")
-  input.type = "file"
-  input.accept = ".json"
-  input.onchange = e=>{
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.onload = res=>{
-      try{
-        const data = JSON.parse(res.target.result)
-        if(data.sysLinks) setStorage("sysLinks",data.sysLinks)
-        if(data.userLinks) setStorage("userLinks",data.userLinks)
-        if(data.sysHistory) setStorage("sysHistory",data.sysHistory)
-        if(data.sysTheme) setStorage("sysTheme",data.sysTheme)
-        alert("全局数据恢复成功！")
-        location.reload()
-      }catch(err){alert("备份文件格式错误")}
-    }
-    reader.readAsText(file)
-  }
-  input.click()
+/* 标记提示 */
+.badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -7px;
+  width: 7px;
+  height: 7px;
+  background: #ff4548;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(255, 69, 72, 0.3);
 }
+</style>
+</head>
+<body>
 
-const canvas = document.getElementById("particles")
-const ctx = canvas.getContext("2d")
-let w,h,partArr=[]
-function resizeCanvas(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
-resizeCanvas()
-window.onresize = resizeCanvas
+<div class="card">
+  <div class="title-box">
+    <div class="title">便民服务中心</div>
+    <div class="title-line"></div>
+  </div>
 
-class Particle{
-  constructor(){
-    this.x = Math.random()*w
-    this.y = Math.random()*h
-    this.r = Math.random()*1.2+0.4
-    this.sx = Math.random()*0.4-0.2
-    this.sy = Math.random()*0.4-0.2
-  }
-  draw(){
-    ctx.beginPath()
-    ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
-    ctx.fillStyle = "rgba(160,232,255,0.6)"
-    ctx.fill()
-  }
-  update(){
-    this.x += this.sx
-    this.y += this.sy
-    if(this.x<0||this.x>w)this.sx=-this.sx
-    if(this.y<0||this.y>h)this.sy=-this.sy
-  }
-}
-function initParticle(){
-  partArr=[]
-  for(let i=0;i<90;i++) partArr.push(new Particle())
-}
-function animateParticle(){
-  ctx.clearRect(0,0,w,h)
-  for(let i=0;i<partArr.length;i++){
-    partArr[i].update()
-    partArr[i].draw()
-  }
-  requestAnimationFrame(animateParticle)
-}
-initParticle()
-animateParticle()
+  <div class="grid">
+    <!-- 年卡办理 -->
+    <a class="btn btn-primary" href=" ">
+      <svg class="icon" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+        <line x1="3" y1="9" x2="21" y2="9"></line>
+      </svg>
+      <span>年卡办理</span>
+    </a >
 
-systemInit()
-renderAll()
-renderHistory()
+    <!-- 公积金查询 -->
+    <a class="btn btn-secondary badge" href="#">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+      <span>公积金查询</span>
+    </a >
+
+    <!-- 医保服务 -->
+    <a class="btn btn-secondary badge" href="#">
+      <svg class="icon icon-light" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <span>医保服务</span>
+    </a >
+
+    <!-- 交管业务 -->
+    <a class="btn btn-secondary" href="#">
+      <svg class="icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="7"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+      </svg>
+      <span>交管业务</span>
+    </a >
+
+    <!-- 政务咨询 -->
+    <a class="btn btn-primary" href="#">
+      <svg class="icon icon-up" viewBox="0 0 24 24">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+      </svg>
+      <span>政务咨询</span>
+    </a >
+
+    <!-- 票务服务 -->
+    <a class="btn btn-secondary" href="#">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M12 2L3 9v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9l-9-7z"></path>
+      </svg>
+      <span>票务服务</span>
+    </a >
+
+    <!-- 天气查询 -->
+    <a class="btn btn-secondary" href="#">
+      <svg class="icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="2.56"></circle>
+        <line x1="12" y1="2" x2="12" y2="5"></line>
+        <line x1="12" y1="19" x2="12" y2="22"></line>
+      </svg>
+      <span>天气查询</span>
+    </a >
+
+    <!-- 维权投诉 -->
+    <a class="btn btn-secondary" href="#">
+      <svg class="icon icon-light" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
+      <span>维权投诉</span>
+    </a >
+  </div>
+</div>
+
+</body>
+</html>
