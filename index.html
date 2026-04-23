@@ -1,321 +1,72 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穹游 · 全能导航</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa, #e8f4f8);
-    padding: 20px;
-    padding-bottom: 100px;
-  }
-  .container { max-width: 1000px; margin: 0 auto; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全能便民导航</title>
+    <style>
+        /* --- 基础样式 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f2f3f5; color: #333; padding-bottom: 30px; }
+        .container { max-width: 600px; margin: 0 auto; }
 
-  /* 搜索框 */
-  .search-box {
-    width: 100%;
-    margin: 25px 0 30px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  #search-input {
-    flex: 1;
-    padding: 14px 20px;
-    font-size: 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    outline: none;
-  }
-  #search-btn {
-    padding: 14px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 28px;
-    background: #64B5F6;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
-  }
+        /* --- 头部 --- */
+        .header { background-color: #fff; padding: 20px 15px; text-align: center; }
+        .logo-area { font-size: 20px; font-weight: bold; color: #555; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .search-bar { background: #f5f5f5; border-radius: 20px; padding: 8px 15px; color: #888; font-size: 14px; text-align: left; }
+        .search-engines { display: flex; justify-content: space-around; margin-top: 15px; font-size: 13px; color: #666; }
+        .search-engines span { padding: 4px 10px; background: #e0e0e0; border-radius: 4px; }
+        .search-engines span.active { background: #007bff; color: white; }
 
-  /* 快捷标签 */
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
-  }
-  .tab {
-    padding: 10px 18px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #666;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-  }
-  .tab.active {
-    background: #2196F3;
-    color: #fff;
-  }
+        /* --- 卡片容器 --- */
+        .card {
+            background: #fff;
+            margin: 10px 15px;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            overflow: hidden; /* 关键：防止内容溢出圆角 */
+            transition: all 0.3s ease;
+        }
 
-  /* 大图标核心区 */
-  .hero {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 35px;
-  }
-  .hero a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 10px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: all 0.25s ease;
-  }
-  .hero a:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.15);
-  }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; }
+        .section-title::before { content: ''; display: block; width: 4px; height: 16px; background: #ff5722; margin-right: 8px; border-radius: 2px; }
 
-  /* 分类标题 */
-  .category-title {
-    font-size: 18px;
-    color: #333;
-    margin: 30px 0 15px;
-    padding-left: 5px;
-    border-left: 4px solid #2196F3;
-  }
+        /* --- 展开/收起 按钮样式 --- */
+        .toggle-btn {
+            font-size: 12px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 4px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+        .toggle-btn:hover { color: #ff5722; }
+        .toggle-btn i { margin-left: 4px; font-style: normal; font-size: 10px; transition: transform 0.2s; }
+        
+        /* 展开时的箭头旋转 */
+        .card.expanded .toggle-btn i { transform: rotate(180deg); }
 
-  /* 核心：3 行 3 列布局 */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-  }
-  .grid a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 16px 10px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: all 0.25s ease;
-  }
-  .grid a:hover {
-    transform: translateY(-4px);
-    background: #fff;
-    color: #2196F3;
-    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.15);
-  }
+        /* --- 网格布局 --- */
+        .grid-container { display: flex; flex-wrap: wrap; justify-content: space-between; }
+        
+        /* 大图标 (快捷入口) */
+        .grid-lg .item { width: 30%; text-align: center; margin-bottom: 15px; }
+        .grid-lg .icon { width: 50px; height: 50px; margin: 0 auto 8px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
 
-  /* ---------------------- 关键修复：百度按钮样式统一 ---------------------- */
-  .grid a[href*="baidu.com"] {
-    background: rgba(255, 255, 255, 0.9); /* 去掉蓝色背景 */
-    color: #333;
-  }
-  .grid a[href*="baidu.com"]:hover {
-    color: #2196F3;
-  }
-  /* -------------------------------------------------------------------- */
+        /* 小图标 (应用列表) */
+        .grid-sm .item { width: 23%; text-align: center; margin-bottom: 15px; }
+        .grid-sm .icon { width: 45px; height: 45px; margin: 0 auto 8px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .item span { display: block; font-size: 12px; color: #333; line-height: 1.4; }
 
-  /* 首页下方搜索+全部列表区 */
-  .all-links-section {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0,0,0,0.05);
-  }
-  .all-links-title {
-    font-size: 16px;
-    color: #444;
-    margin-bottom: 15px;
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-
-  <!-- 顶部搜索 -->
-  <div class="search-box">
-    <input type="text" id="search-input" placeholder="🔎 搜索直达：微信/支付宝/公积金/违章...">
-    <button id="search-btn">搜索</button>
-  </div>
-
-  <!-- 快捷标签 -->
-  <div class="tabs">
-    <div class="tab active">百度</div>
-    <div class="tab">必应</div>
-    <div class="tab">搜狗</div>
-    <div class="tab">微信</div>
-    <div class="tab">支付宝</div>
-    <div class="tab">公积金</div>
-    <div class="tab">视频</div>
-    <div class="tab">外卖</div>
-    <div class="tab">违章</div>
-    <div class="tab">税务</div>
-    <div class="tab">天气</div>
-    <div class="tab">快递</div>
-  </div>
-
-  <!-- 大图标核心区 -->
-  <div class="hero">
-    <a href=" " target="_blank"><div class="icon">💬</div>微信</a >
-    <a href="https://www.alipay.com" target="_blank"><div class="icon">💳</div>支付宝</a >
-    <a href="https://122.gov.cn" target="_blank"><div class="icon">🚗</div>交管12123</a >
-  </div>
-
-  <!-- 热门应用 -->
-  <div class="category-title">🔥 热门应用</div>
-  <div class="grid">
-    <a href="https://im.qq.com" target="_blank">QQ</a >
-    <a href="https://weibo.com" target="_blank">微博</a >
-    <a href="https://www.xiaohongshu.com" target="_blank">小红书</a >
-    <a href="https://www.douyin.com" target="_blank">抖音</a >
-    <a href="https://www.kuaishou.com" target="_blank">快手</a >
-    <a href="https://music.163.com" target="_blank">网易云音乐</a >
-    <a href="https://y.qq.com" target="_blank">QQ音乐</a >
-    <a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a >
-    <a href="https://www.toutiao.com" target="_blank">今日头条</a >
-  </div>
-
-  <!-- 社交通讯 -->
-  <div class="category-title">💬 社交通讯</div>
-  <div class="grid">
-    <a href="https://wx.qq.com" target="_blank">微信网页版</a >
-    <a href="https://im.qq.com" target="_blank">QQ网页版</a >
-    <a href="https://work.weixin.qq.com" target="_blank">企业微信</a >
-    <a href="https://www.dingtalk.com" target="_blank">钉钉</a >
-    <a href="https://www.feishu.cn" target="_blank">飞书</a >
-    <a href="https://web.whatsapp.com" target="_blank">WhatsApp</a >
-  </div>
-
-  <!-- 支付金融 -->
-  <div class="category-title">💳 支付金融</div>
-  <div class="grid">
-    <a href="https://www.alipay.com" target="_blank">支付宝</a >
-    <a href="https://www.95516.com" target="_blank">云闪付</a >
-    <a href="https://www.eastmoney.com" target="_blank">东方财富</a >
-    <a href="https://www.10jqka.com.cn" target="_blank">同花顺</a >
-    <a href="https://xueqiu.com" target="_blank">雪球</a >
-    <a href="https://finance.sina.com.cn" target="_blank">新浪财经</a >
-  </div>
-
-  <!-- 银行服务 -->
-  <div class="category-title">🏦 银行服务</div>
-  <div class="grid">
-    <a href="https://www.icbc.com.cn" target="_blank">工商银行</a >
-    <a href="https://www.abchina.com" target="_blank">农业银行</a >
-    <a href="https://www.boc.cn" target="_blank">中国银行</a >
-    <a href="https://www.ccb.com" target="_blank">建设银行</a >
-    <a href="https://www.bankcomm.com" target="_blank">交通银行</a >
-    <a href="https://www.psbc.com" target="_blank">邮储银行</a >
-  </div>
-
-  <!-- 搜索引擎 -->
-  <div class="category-title">🔍 搜索引擎</div>
-  <div class="grid">
-    <a href="https://www.baidu.com" target="_blank">百度</a >
-    <a href="https://www.google.com" target="_blank">谷歌</a >
-    <a href="https://www.bing.com" target="_blank">必应</a >
-    <a href="https://www.sogou.com" target="_blank">搜狗</a >
-    <a href="https://www.so.com" target="_blank">360搜索</a >
-    <a href="https://www.duckduckgo.com" target="_blank">DuckDuckGo</a >
-  </div>
-
-  <!-- 电商购物 -->
-  <div class="category-title">🛒 电商购物</div>
-  <div class="grid">
-    <a href="https://www.taobao.com" target="_blank">淘宝</a >
-    <a href="https://www.jd.com" target="_blank">京东</a >
-    <a href="https://www.pinduoduo.com" target="_blank">拼多多</a >
-    <a href="https://www.vip.com" target="_blank">唯品会</a >
-    <a href="https://www.1688.com" target="_blank">1688批发</a >
-  </div>
-
-  <!-- 生活服务 -->
-  <div class="category-title">🍔 生活服务</div>
-  <div class="grid">
-    <a href="https://www.meituan.com" target="_blank">美团</a >
-    <a href="https://www.ele.me" target="_blank">饿了么</a >
-    <a href="https://www.dianping.com" target="_blank">大众点评</a >
-    <a href="https://www.58.com" target="_blank">58同城</a >
-  </div>
-
-  <!-- 👇 首页下方：全部链接搜索 + 精选区 👇 -->
-  <div class="all-links-section">
-    <div class="all-links-title">📁 全部应用直达（支持搜索筛选）</div>
-    <div class="grid" id="all-links-grid">
-      <!-- 这里会自动加载上面所有分类的链接，你可以直接搜索查看全部名称 -->
-    </div>
-  </div>
-
-</div>
-
-<script>
-  // 顶部搜索功能
-  document.getElementById('search-btn').addEventListener('click', function() {
-    const keyword = document.getElementById('search-input').value.trim().toLowerCase();
-    if (keyword) {
-      window.open(`https://www.baidu.com/s?wd=${keyword}`, '_blank');
-    }
-  });
-
-  // 快捷标签跳转
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', function() {
-      const text = this.textContent.trim();
-      const links = {
-        '百度': 'https://www.baidu.com',
-        '必应': 'https://www.bing.com',
-        '搜狗': 'https://www.sogou.com',
-        '微信': 'https://wx.qq.com',
-        '支付宝': 'https://www.alipay.com',
-        '公积金': 'https://gjzwfw.gov.cn',
-        '视频': 'https://v.qq.com',
-        '外卖': 'https://www.meituan.com',
-        '违章': 'https://122.gov.cn',
-        '税务': 'https://www.tax.service.gov.cn',
-        '天气': 'https://www.weather.com',
-        '快递': 'https://www.kuaidi.com'
-      };
-      if (links[text]) window.open(links[text], '_blank');
-    });
-  });
-
-  // 👇 自动加载全部链接到首页下方区域 👇
-  window.onload = function() {
-    const allGrid = document.getElementById('all-links-grid');
-    const grids = document.querySelectorAll('.grid');
-    
-    grids.forEach(grid => {
-      const items = grid.innerHTML;
-      allGrid.innerHTML += items;
-    });
-  }
-</script>
-
-</body>
-</html>
+        /* --- 颜色定义 --- */
+        .bg-blue { background-color: #e3f2fd; color: #1976d2; }
+        .bg-green { background-color: #e8f5e9; color: #43a047; }
+        .bg-orange { background-color: #fff3e0; color: #fb8c00; }
+        .bg-purple { background-color: #f3e5f5; color: #8e24aa; }
+        .bg-red { background-color: #ffebee; color: #e53935; }
+        .bg-teal { background-color: #e0f2f1; color: #00897b; }
