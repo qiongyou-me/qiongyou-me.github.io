@@ -3,189 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>72入口 · 最终完美修复版</title>
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>72入口完整版</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
-    background:linear-gradient(135deg,#e8f4ff 0%,#dfe8f5 100%);
-    background-attachment:fixed;
-    padding:16px;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-  .container{max-width:1600px;margin:0 auto;}
-
-  /* 大卡片：毛玻璃 + 环境光 + 悬浮感 */
-  .card-group{
-    background:#ffffff;
-    backdrop-filter:blur(12px);
-    border-radius:24px;
-    padding:22px;
-    margin-bottom:28px;
-    box-shadow:0 10px 30px rgba(0,80,160,0.1);
-    border:1px solid rgba(255,255,255,0.8);
-    opacity:0;transform:translateY(20px);
-    animation:fadeInUp 0.8s ease forwards;
-    position:relative;
+  body {
+    font-family: "PingFang SC","Microsoft YaHei",sans-serif;
+    background: #e9ecef;
+    padding: 15px;
   }
-  /* 顶部环境光 */
-  .card-group::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:4px;
-    background:linear-gradient(90deg,#60a5fa,#2563eb);
-    border-radius:24px 24px 0 0;
-    opacity:0.6;
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
   }
-
-  /* 卡片延迟动画：从上到下依次淡入 */
-  .card-group:nth-child(2){animation-delay:0.1s;}
-  .card-group:nth-child(3){animation-delay:0.2s;}
-  .card-group:nth-child(4){animation-delay:0.3s;}
-  .card-group:nth-child(5){animation-delay:0.4s;}
-  .card-group:nth-child(6){animation-delay:0.5s;}
-  .card-group:nth-child(7){animation-delay:0.6s;}
-  .card-group:nth-child(8){animation-delay:0.7s;}
-  .card-group:nth-child(9){animation-delay:0.8s;}
-  .card-group:nth-child(10){animation-delay:0.9s;}
-  .card-group:nth-child(11){animation-delay:1.0s;}
-  .card-group:nth-child(12){animation-delay:1.1s;}
-
-  /* 标题栏：清爽排版 */
-  .title-wrap{
-    display:flex;justify-content:space-between;align-items:center;
-    margin-bottom:18px;
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 30px 0 15px;
+    color: #212529;
+    border-left: 4px solid #007bff;
+    padding-left: 10px;
   }
-  .title{
-    font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
   }
-  /* More 按钮：更醒目但不抢风头 */
-  .more{
-    font-size:14px;font-weight:600;color:#9ca3af;display:flex;align-items:center;gap:4px;
-    transition:all 0.2s;
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 16px;
+    color: #212529;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
   }
-  .more:hover{color:#0066cc;transform:translateX(2px);}
-
-  /* 网格布局：一行 3 个 */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,123,255,0.15);
+    background: #f8f9fa;
   }
-
-  /* 小按钮：微立体 + 悬浮感 + 柔和选中态 */
-  .card{
-    display:flex;flex-direction:column;align-items:center;gap:12px; /* 图标与文字间距加大 */
-    padding:18px 12px;
-    background:#f8fafc;
-    border-radius:20px;
-    border:none; /* 去掉生硬边框 */
-    transition:all 0.3s cubic-bezier(0.2,0,0.2,1);
-    position:relative;
+  .card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
-
-  /* 图标：微立体双色调 + 统一视觉重量 */
-  .card i{
-    font-size:24px;
-    width:48px;height:48px;
-    line-height:48px;
-    text-align:center;
-    border-radius:14px;
-    background:linear-gradient(135deg,#60a5fa,#2563eb);
-    color:#ffffff;
-    box-shadow:0 6px 16px rgba(0,102,204,0.25); /* 蓝色轻盈悬浮阴影 */
-  }
-
-  .card span{font-size:14px;font-weight:600;color:#334155;transition:all 0.2s;}
-  .card a{text-decoration:none;color:inherit;display:block;width:100%;}
-
-  /* 交互：柔和的选中/按压态 + 轻微放大 */
-  .card:hover{background:#e2e8f0;transform:translateY(-3px) scale(1.02);}
-  .card:active{
-    background:#cbd5e0;
-    transform:scale(0.96);
-    box-shadow:inset 0 2px 6px rgba(0,0,0,0.1);
-  }
-
-  /* 动画 keyframes */
-  @keyframes fadeInUp{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-
-  /* 🚗 汽车平台专属：橙色渐变 + 蓝色阴影 */
-  .car-group .title{color:#ff5722;}
-  .car-group i{
-    background:linear-gradient(135deg,#ffc145,#ff5722);
-    box-shadow:0 6px 16px rgba(255,87,34,0.3);
-  }
-  .car-group .more{color:#ff5722;}
-
-  /* 📱 移动端自适应 */
   @media (max-width:768px){
-    .grid{gap:12px;}
-    .card{padding:14px 10px;}
-    .card i{width:40px;height:40px;line-height:40px;font-size:20px;}
-    .title{font-size:18px;}
-    .card-group{padding:18px;}
+    .grid { gap: 12px; }
+    .card { padding: 16px 10px; font-size: 14px; }
+    .title { font-size: 18px; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
 
-<!-- 🏦 银行大全 (12个) - 图标已优化 -->
-<div class="card-group">
-  <div class="title-wrap">
-    <div class="title"><i class="fa-solid fa-building-columns"></i> 银行大全</div>
-    <div class="more">更多 <i class="fa-solid fa-chevron-right"></i></div>
-  </div>
+  <!-- 🏦 银行大全 12个 -->
+  <div class="title">🏦 银行大全</div>
   <div class="grid">
-    <div class="card"><i class="fa-solid fa-building"></i> <a href=" ">建设银行</a ></div>
-    <div class="card"><i class="fa-solid fa-coins"></i> <a href="#">农业银行</a ></div>
-    <div class="card"><i class="fa-solid fa-landmark"></i> <a href="#">中国银行</a ></div>
-    <div class="card"><i class="fa-solid fa-money-bill-wave"></i> <a href="#">工商银行</a ></div>
-    <div class="card"><i class="fa-solid fa-shield-halved"></i> <a href="#">交通银行</a ></div>
-    <div class="card"><i class="fa-solid fa-wallet"></i> <a href="#">招商银行</a ></div>
-    <div class="card"><i class="fa-solid fa-chart-line"></i> <a href="#">兴业银行</a ></div>
-    <div class="card"><i class="fa-solid fa-sack-dollar"></i> <a href="#">浦发银行</a ></div>
-    <div class="card"><i class="fa-solid fa-shield-halved"></i> <a href="#">光大银行</a ></div>
-    <div class="card"><i class="fa-solid fa-fire-flame-curved"></i> <a href="#">广发银行</a ></div>
-    <div class="card"><i class="fa-solid fa-shield-halved"></i> <a href="#">平安银行</a ></div>
-    <div class="card"><i class="fa-solid fa-mountain-sun"></i> <a href="#">华夏银行</a ></div>
+    <div class="card"><a href=" " target="_blank">建设银行</a ></div>
+    <div class="card"><a href="https://www.abchina.com" target="_blank">农业银行</a ></div>
+    <div class="card"><a href="https://www.boc.cn" target="_blank">中国银行</a ></div>
+    <div class="card"><a href="https://www.icbc.com.cn" target="_blank">工商银行</a ></div>
+    <div class="card"><a href="https://www.bankcomm.com" target="_blank">交通银行</a ></div>
+    <div class="card"><a href="https://www.cmbchina.com" target="_blank">招商银行</a ></div>
+    <div class="card"><a href="https://www.cib.com.cn" target="_blank">兴业银行</a ></div>
+    <div class="card"><a href="https://www.spdb.com.cn" target="_blank">浦发银行</a ></div>
+    <div class="card"><a href="https://www.cebbank.com" target="_blank">光大银行</a ></div>
+    <div class="card"><a href="https://www.gxb.com.cn" target="_blank">广发银行</a ></div>
+    <div class="card"><a href="https://www.pingan.com" target="_blank">平安银行</a ></div>
+    <div class="card"><a href="https://www.hxb.com.cn" target="_blank">华夏银行</a ></div>
   </div>
-</div>
 
-<!-- 💳 信用卡专属 (6个) -->
-<div class="card-group">
-  <div class="title-wrap">
-    <div class="title"><i class="fa-solid fa-credit-card"></i> 信用卡专属</div>
-    <div class="more">更多 <i class="fa-solid fa-chevron-right"></i></div>
-  </div>
+  <!-- 💳 信用卡专属 6个 -->
+  <div class="title">💳 信用卡专属</div>
   <div class="grid">
-    <div class="card"><i class="fa-solid fa-cart-shopping"></i> <a href="#">建行生活</a ></div>
-    <div class="card"><i class="fa-solid fa-leaf"></i> <a href="#">农银生活</a ></div>
-    <div class="card"><i class="fa-solid fa-building"></i> <a href="#">中行信用卡</a ></div>
-    <div class="card"><i class="fa-solid fa-hand-holding-heart"></i> <a href="#">掌上生活</a ></div>
-    <div class="card"><i class="fa-solid fa-mobile-screen-button"></i> <a href="#">动卡空间</a ></div>
-    <div class="card"><i class="fa-solid fa-magnifying-glass-chart"></i> <a href="#">发现精彩</a ></div>
+    <div class="card"><a href="https://www.ccb.com/creditcard" target="_blank">建行生活</a ></div>
+    <div class="card"><a href="https://www.abchina.com/creditcard" target="_blank">农银生活</a ></div>
+    <div class="card"><a href="https://creditcard.boc.cn" target="_blank">中国银行信用卡</a ></div>
+    <div class="card"><a href="https://creditcard.cmbchina.com" target="_blank">掌上生活</a ></div>
+    <div class="card"><a href="https://www.citicbank.com" target="_blank">动卡空间</a ></div>
+    <div class="card"><a href="https://www.cgbchina.com.cn" target="_blank">发现精彩</a ></div>
   </div>
-</div>
 
-<!-- 🚗 汽车平台 (完美补齐 3 个！) -->
-<div class="card-group car-group">
-  <div class="title-wrap">
-    <div class="title"><i class="fa-solid fa-car"></i> 汽车平台</div>
-    <div class="more">更多 <i class="fa-solid fa-chevron-right"></i></div>
-  </div>
+  <!-- 🚗 汽车平台 3个 -->
+  <div class="title">🚗 汽车平台</div>
   <div class="grid">
-    <!-- 第 1 个 -->
-    <div class="card"><i class="fa-solid fa-gauge-high"></i> <a href="#">懂车帝</a ></div>
-    <!-- 第 2 个 -->
-    <div class="card"><i class="fa-solid fa-car-side"></i> <a href="#">汽车之家</a ></div>
-    <!-- 第 3 个 (完美补全！) -->
-    <div class="card"><i class="fa-solid fa-tire"></i> <a href="#">易车网</a ></div>
+    <div class="card"><a href="https://www.dongchedi.com" target="_blank">懂车帝</a ></div>
+    <div class="card"><a href="https://www.autohome.com.cn" target="_blank">汽车之家</a ></div>
+    <div class="card"><a href="https://www.yiche.com" target="_blank">易车网</a ></div>
   </div>
-</div>
+
+  <!-- 🔍 查询工具 3个 -->
+  <div class="title">🔍 查询工具</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.qcc.com" target="_blank">企查查</a ></div>
+    <div class="card"><a href="https://www.tianyancha.com" target="_blank">天眼查</a ></div>
+    <div class="card"><a href="https://www.aiqicha.com" target="_blank">爱企查</a ></div>
+  </div>
+
+  <!-- 🧭 地图导航 3个 -->
+  <div class="title">🧭 地图导航</div>
+  <div class="grid">
+    <div class="card"><a href="https://amap.com" target="_blank">高德地图</a ></div>
+    <div class="card"><a href="https://map.baidu.com" target="_blank">百度地图</a ></div>
+    <div class="card"><a href="https://map.qq.com" target="_blank">腾讯地图</a ></div>
+  </div>
+
+  <!-- 🎵 音乐平台 6个 -->
+  <div class="title">🎵 音乐平台</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.kuwo.cn" target="_blank">酷我音乐</a ></div>
+    <div class="card"><a href="https://www.kugou.com" target="_blank">酷狗音乐</a ></div>
+    <div class="card"><a href="https://y.qq.com" target="_blank">QQ音乐</a ></div>
+    <div class="card"><a href="https://music.163.com" target="_blank">网易云音乐</a ></div>
+    <div class="card"><a href="https://music.migu.cn" target="_blank">咪咕音乐</a ></div>
+    <div class="card"><a href="https://qishui.qq.com" target="_blank">汽水音乐</a ></div>
+  </div>
+
+  <!-- 🤖 AI工具合集 9个 -->
+  <div class="title">🤖 AI工具合集</div>
+  <div class="grid">
+    <div class="card"><a href="https://openai.com" target="_blank">OpenAI</a ></div>
+    <div class="card"><a href="https://www.anthropic.com" target="_blank">Claude</a ></div>
+    <div class="card"><a href="https://www.x.ai" target="_blank">xAI</a ></div>
+    <div class="card"><a href="https://www.baidu.com" target="_blank">百度文心</a ></div>
+    <div class="card"><a href="https://www.toutiao.com" target="_blank">字节跳动</a ></div>
+    <div class="card"><a href="https://www.huawei.com" target="_blank">华为盘古</a ></div>
+    <div class="card"><a href="https://www.doubao.com" target="_blank">豆包</a ></div>
+    <div class="card"><a href="https://tongyi.aliyun.com" target="_blank">千问</a ></div>
+    <div class="card"><a href="https://www.deepseek.com" target="_blank">Deepseek</a ></div>
+  </div>
+
+  <!-- 🛒 购物电商 6个 -->
+  <div class="title">🛒 购物电商</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.taobao.com" target="_blank">淘宝</a ></div>
+    <div class="card"><a href="https://www.jd.com" target="_blank">京东</a ></div>
+    <div class="card"><a href="https://www.pinduoduo.com" target="_blank">拼多多</a ></div>
+    <div class="card"><a href="https://www.vip.com" target="_blank">唯品会</a ></div>
+    <div class="card"><a href="https://www.yhd.com" target="_blank">一号店</a ></div>
+    <div class="card"><a href="https://www.gome.com.cn" target="_blank">国美</a ></div>
+  </div>
+
+  <!-- 📱 社交资讯 6个 -->
+  <div class="title">📱 社交资讯</div>
+  <div class="grid">
+    <div class="card"><a href="httpsweixin.qq.com" target="_blank">微信</a ></div>
+    <div class="card"><a href="https://im.qq.com" target="_blank">QQ</a ></div>
+    <div class="card"><a href="https://www.zhihu.com" target="_blank">知乎</a ></div>
+    <div class="card"><a href="https://weibo.com" target="_blank">微博</a ></div>
+    <div class="card"><a href="https://www.xiaohongshu.com" target="_blank">小红书</a ></div>
+    <div class="card"><a href="https://www.douyin.com" target="_blank">抖音</a ></div>
+  </div>
+
+  <!-- 🔎 搜索资讯 6个 -->
+  <div class="title">🔎 搜索资讯</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.baidu.com" target="_blank">百度搜索</a ></div>
+    <div class="card"><a href="https://www.bing.com" target="_blank">必应搜索</a ></div>
+    <div class="card"><a href="https://www.sogou.com" target="_blank">搜狗搜索</a ></div>
+    <div class="card"><a href="https://www.toutiao.com" target="_blank">今日头条</a ></div>
+    <div class="card"><a href="https://www.163.com" target="_blank">网易新闻</a ></div>
+    <div class="card"><a href="https://www.huanqiu.com" target="_blank">环球网</a ></div>
+  </div>
+
+  <!-- 🎮 游戏娱乐 6个 -->
+  <div class="title">🎮 游戏娱乐</div>
+  <div class="grid">
+    <div class="card"><a href="https://game.qq.com" target="_blank">腾讯游戏</a ></div>
+    <div class="card"><a href="https://www.netease.com" target="_blank">网易游戏</a ></div>
+    <div class="card"><a href="https://www.4399.com" target="_blank">4399小游戏</a ></div>
+    <div class="card"><a href="https://www.huya.com" target="_blank">虎牙直播</a ></div>
+    <div class="card"><a href="https://www.douyu.com" target="_blank">斗鱼直播</a ></div>
+    <div class="card"><a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a ></div>
+  </div>
+
+  <!-- 🏥 生活服务 6个 -->
+  <div class="title">🏥 生活服务</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.meituan.com" target="_blank">美团</a ></div>
+    <div class="card"><a href="https://www.ele.me" target="_blank">饿了么</a ></div>
+    <div class="card"><a href="https://www.didiglobal.com" target="_blank">滴滴出行</a ></div>
+    <div class="card"><a href="https://www.12306.cn" target="_blank">铁路12306</a ></div>
+    <div class="card"><a href="https://www.fliggy.com" target="_blank">飞猪旅行</a ></div>
+    <div class="card"><a href="https://www.122.gov.cn" target="_blank">交管122</a ></div>
+  </div>
 
 </div>
 </body>
