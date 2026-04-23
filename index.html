@@ -9,15 +9,15 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: linear-gradient(135deg, #f5f7fa, #e8f4f8);
-    padding: 20px; /* 增加整体内边距，给顶部留出喘息空间 */
-    padding-bottom: 80px;
+    padding: 20px;
+    padding-bottom: 100px;
   }
   .container { max-width: 1000px; margin: 0 auto; }
 
   /* 搜索框 */
   .search-box {
     width: 100%;
-    margin: 25px 0 30px; /* 增加顶部外边距，增加呼吸感 */
+    margin: 25px 0 30px;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -26,19 +26,19 @@
     flex: 1;
     padding: 14px 20px;
     font-size: 16px;
-    border: 1px solid #e0e0e0; /* 增加浅灰色边框，稳住左边 */
-    border-radius: 28px; /* 圆角极大，胶囊化 */
+    border: 1px solid #e0e0e0;
+    border-radius: 28px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* 弱化阴影 */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     outline: none;
   }
   #search-btn {
     padding: 14px 24px;
     font-size: 16px;
     border: none;
-    border-radius: 28px; /* 与输入框一致的大圆角，视觉平衡 */
-    background: #64B5F6; /* 调浅蓝色，降低视觉重量 */
+    border-radius: 28px;
+    background: #64B5F6;
     color: #fff;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
@@ -50,7 +50,7 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
-    justify-content: center; /* 核心修复：整体居中对齐 */
+    justify-content: center;
   }
   .tab {
     padding: 10px 18px;
@@ -67,7 +67,7 @@
     color: #fff;
   }
 
-  /* 大图标核心应用区 */
+  /* 大图标核心区 */
   .hero {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -86,7 +86,7 @@
     text-decoration: none;
     color: #333;
     font-size: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 柔和阴影 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: all 0.25s ease;
   }
   .hero a:hover {
@@ -103,7 +103,7 @@
     border-left: 4px solid #2196F3;
   }
 
-  /* 核心：3 行 3 列布局 + 图标补全 */
+  /* 核心：3 行 3 列布局 */
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -113,7 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; /* 图标与文字间距 */
+    gap: 8px;
     padding: 16px 10px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
@@ -121,7 +121,7 @@
     text-decoration: none;
     color: #333;
     font-size: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* 柔和阴影 */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     transition: all 0.25s ease;
   }
   .grid a:hover {
@@ -130,25 +130,37 @@
     color: #2196F3;
     box-shadow: 0 8px 20px rgba(33, 150, 243, 0.15);
   }
-  /* 图标样式：使用 emoji 作为小图标 */
-  .grid a::before {
-    content: '🔗'; /* 默认图标，具体分类下方会覆盖 */
-    font-size: 18px;
+
+  /* ---------------------- 关键修复：百度按钮样式统一 ---------------------- */
+  .grid a[href*="baidu.com"] {
+    background: rgba(255, 255, 255, 0.9); /* 去掉蓝色背景 */
+    color: #333;
   }
-  /* 针对不同分类定制图标 */
-  .category-title:nth-child(2) + .grid a::before { content: '💬'; } /* 社交通讯 */
-  .category-title:nth-child(4) + .grid a::before { content: '💳'; } /* 支付金融 */
-  .category-title:nth-child(6) + .grid a::before { content: '🏦'; } /* 银行服务 */
-  .category-title:nth-child(8) + .grid a::before { content: '🔍'; } /* 搜索引擎 */
+  .grid a[href*="baidu.com"]:hover {
+    color: #2196F3;
+  }
+  /* -------------------------------------------------------------------- */
+
+  /* 首页下方搜索+全部列表区 */
+  .all-links-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .all-links-title {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 15px;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- 搜索框 -->
+  <!-- 顶部搜索 -->
   <div class="search-box">
-    <input type="text" id="search-input" placeholder="🔎 站内直达：微信/支付宝/公积金/违章...">
+    <input type="text" id="search-input" placeholder="🔎 搜索直达：微信/支付宝/公积金/违章...">
     <button id="search-btn">搜索</button>
   </div>
 
@@ -164,12 +176,11 @@
     <div class="tab">外卖</div>
     <div class="tab">违章</div>
     <div class="tab">税务</div>
-    <!-- 补全两个标签，让每行凑齐4个，视觉更平衡 -->
     <div class="tab">天气</div>
     <div class="tab">快递</div>
   </div>
 
-  <!-- 大图标核心应用区 -->
+  <!-- 大图标核心区 -->
   <div class="hero">
     <a href=" " target="_blank"><div class="icon">💬</div>微信</a >
     <a href="https://www.alipay.com" target="_blank"><div class="icon">💳</div>支付宝</a >
@@ -234,10 +245,37 @@
     <a href="https://www.duckduckgo.com" target="_blank">DuckDuckGo</a >
   </div>
 
+  <!-- 电商购物 -->
+  <div class="category-title">🛒 电商购物</div>
+  <div class="grid">
+    <a href="https://www.taobao.com" target="_blank">淘宝</a >
+    <a href="https://www.jd.com" target="_blank">京东</a >
+    <a href="https://www.pinduoduo.com" target="_blank">拼多多</a >
+    <a href="https://www.vip.com" target="_blank">唯品会</a >
+    <a href="https://www.1688.com" target="_blank">1688批发</a >
+  </div>
+
+  <!-- 生活服务 -->
+  <div class="category-title">🍔 生活服务</div>
+  <div class="grid">
+    <a href="https://www.meituan.com" target="_blank">美团</a >
+    <a href="https://www.ele.me" target="_blank">饿了么</a >
+    <a href="https://www.dianping.com" target="_blank">大众点评</a >
+    <a href="https://www.58.com" target="_blank">58同城</a >
+  </div>
+
+  <!-- 👇 首页下方：全部链接搜索 + 精选区 👇 -->
+  <div class="all-links-section">
+    <div class="all-links-title">📁 全部应用直达（支持搜索筛选）</div>
+    <div class="grid" id="all-links-grid">
+      <!-- 这里会自动加载上面所有分类的链接，你可以直接搜索查看全部名称 -->
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // 搜索功能
+  // 顶部搜索功能
   document.getElementById('search-btn').addEventListener('click', function() {
     const keyword = document.getElementById('search-input').value.trim().toLowerCase();
     if (keyword) {
@@ -245,7 +283,7 @@
     }
   });
 
-  // 点击标签跳转
+  // 快捷标签跳转
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', function() {
       const text = this.textContent.trim();
@@ -263,11 +301,20 @@
         '天气': 'https://www.weather.com',
         '快递': 'https://www.kuaidi.com'
       };
-      if (links[text]) {
-        window.open(links[text], '_blank');
-      }
+      if (links[text]) window.open(links[text], '_blank');
     });
   });
+
+  // 👇 自动加载全部链接到首页下方区域 👇
+  window.onload = function() {
+    const allGrid = document.getElementById('all-links-grid');
+    const grids = document.querySelectorAll('.grid');
+    
+    grids.forEach(grid => {
+      const items = grid.innerHTML;
+      allGrid.innerHTML += items;
+    });
+  }
 </script>
 
 </body>
