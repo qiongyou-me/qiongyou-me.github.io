@@ -1,72 +1,186 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全能便民导航</title>
-    <style>
-        /* --- 基础样式 --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f2f3f5; color: #333; padding-bottom: 30px; }
-        .container { max-width: 600px; margin: 0 auto; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100入口·紧凑聚合页</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#f5f5f7;padding:10px;
+  }
+  .head{text-align:center;margin-bottom:12px;color:#1a1a1a;}
+  .head h1{font-size:18px;margin-bottom:4px;}
+  .head p{font-size:12px;color:#666;}
 
-        /* --- 头部 --- */
-        .header { background-color: #fff; padding: 20px 15px; text-align: center; }
-        .logo-area { font-size: 20px; font-weight: bold; color: #555; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .search-bar { background: #f5f5f5; border-radius: 20px; padding: 8px 15px; color: #888; font-size: 14px; text-align: left; }
-        .search-engines { display: flex; justify-content: space-around; margin-top: 15px; font-size: 13px; color: #666; }
-        .search-engines span { padding: 4px 10px; background: #e0e0e0; border-radius: 4px; }
-        .search-engines span.active { background: #007bff; color: white; }
+  /* 整个网格容器 */
+  .wrap{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+    gap:10px;
+  }
 
-        /* --- 卡片容器 --- */
-        .card {
-            background: #fff;
-            margin: 10px 15px;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            overflow: hidden; /* 关键：防止内容溢出圆角 */
-            transition: all 0.3s ease;
-        }
+  /* 每个入口卡片（紧凑缩小版） */
+  .box{
+    background:#fff;border-radius:10px;
+    padding:10px 8px;
+    font-size:13px;
+    color:#222;
+    border:1px solid #eaeaea;
+    transition:transform .15s;
+  }
+  .box:hover{transform:translateY(-2px);}
+  .box a{
+    color:#3182ce;
+    text-decoration:none;
+    font-size:12px;
+    margin-top:4px;
+    display:inline-block;
+  }
+  .box a:hover{text-decoration:underline;}
 
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; }
-        .section-title::before { content: ''; display: block; width: 4px; height: 16px; background: #ff5722; margin-right: 8px; border-radius: 2px; }
+  /* 分类标题 */
+  .tit{
+    grid-column:1/-1;
+    font-size:15px;
+    font-weight:600;
+    margin-top:8px;
+    margin-bottom:4px;
+    color:#1a1a1a;
+  }
+</style>
+</head>
 
-        /* --- 展开/收起 按钮样式 --- */
-        .toggle-btn {
-            font-size: 12px;
-            color: #666;
-            background: #f5f5f5;
-            padding: 4px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: color 0.2s;
-        }
-        .toggle-btn:hover { color: #ff5722; }
-        .toggle-btn i { margin-left: 4px; font-style: normal; font-size: 10px; transition: transform 0.2s; }
-        
-        /* 展开时的箭头旋转 */
-        .card.expanded .toggle-btn i { transform: rotate(180deg); }
+<body>
 
-        /* --- 网格布局 --- */
-        .grid-container { display: flex; flex-wrap: wrap; justify-content: space-between; }
-        
-        /* 大图标 (快捷入口) */
-        .grid-lg .item { width: 30%; text-align: center; margin-bottom: 15px; }
-        .grid-lg .icon { width: 50px; height: 50px; margin: 0 auto 8px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+<div class="head">
+  <h1>100入口·紧凑聚合首页</h1>
+  <p>银行+信用卡+社交+资讯+生活+工具+政务（共约100入口）</p >
+</div>
 
-        /* 小图标 (应用列表) */
-        .grid-sm .item { width: 23%; text-align: center; margin-bottom: 15px; }
-        .grid-sm .icon { width: 45px; height: 45px; margin: 0 auto 8px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .item span { display: block; font-size: 12px; color: #333; line-height: 1.4; }
+<div class="wrap">
 
-        /* --- 颜色定义 --- */
-        .bg-blue { background-color: #e3f2fd; color: #1976d2; }
-        .bg-green { background-color: #e8f5e9; color: #43a047; }
-        .bg-orange { background-color: #fff3e0; color: #fb8c00; }
-        .bg-purple { background-color: #f3e5f5; color: #8e24aa; }
-        .bg-red { background-color: #ffebee; color: #e53935; }
-        .bg-teal { background-color: #e0f2f1; color: #00897b; }
+<!-- ============= 🏦 银行与信用卡（12个）============= -->
+<div class="tit">🏦 银行与信用卡</div>
+
+<div class="box">工商银行手机银行<br><a href=" " target="_blank">访问</a ></div>
+<div class="box">建设银行手机银行<br><a href="https://www.ccb.com" target="_blank">访问</a ></div>
+<div class="box">农业银行手机银行<br><a href="https://www.abchina.com" target="_blank">访问</a ></div>
+<div class="box">中国银行手机银行<br><a href="https://www.boc.cn" target="_blank">访问</a ></div>
+<div class="box">交通银行手机银行<br><a href="https://www.bankcomm.com" target="_blank">访问</a ></div>
+<div class="box">平安银行口袋银行<br><a href="https://bank.pingan.com" target="_blank">访问</a ></div>
+
+<div class="box">工银e生活（工行信用卡）<br><a href="https://www.icbc.com.cn" target="_blank">访问</a ></div>
+<div class="box">建行生活（建行信用卡）<br><a href="https://www.ccb.com" target="_blank">访问</a ></div>
+<div class="box">掌上生活（招行信用卡）<br><a href="https://www.cmbchina.com" target="_blank">访问</a ></div>
+<div class="box">缤纷生活（中行信用卡）<br><a href="https://www.boc.cn" target="_blank">访问</a ></div>
+<div class="box">买单吧（交行信用卡）<br><a href="https://www.bankcomm.com" target="_blank">访问</a ></div>
+<div class="box">平安口袋信用卡<br><a href="https://bank.pingan.com" target="_blank">访问</a ></div>
+
+<!-- ============= 📱 社交通讯（14个）============= -->
+<div class="tit">📱 社交通讯</div>
+
+<div class="box">微信<br><a href="https://weixin.qq.com" target="_blank">访问</a ></div>
+<div class="box">QQ<br><a href="https://im.qq.com" target="_blank">访问</a ></div>
+<div class="box">微博<br><a href="https://weibo.com" target="_blank">访问</a ></div>
+<div class="box">知乎<br><a href="https://www.zhihu.com" target="_blank">访问</a ></div>
+<div class="box">小红书<br><a href="https://www.xiaohongshu.com" target="_blank">访问</a ></div>
+<div class="box">抖音<br><a href="https://www.douyin.com" target="_blank">访问</a ></div>
+<div class="box">快手<br><a href="https://www.kuaishou.com" target="_blank">访问</a ></div>
+<div class="box">B站<br><a href="https://www.bilibili.com" target="_blank">访问</a ></div>
+<div class="box">豆瓣<br><a href="https://www.douban.com" target="_blank">访问</a ></div>
+<div class="box">贴吧<br><a href="https://tieba.baidu.com" target="_blank">访问</a ></div>
+<div class="box">钉钉<br><a href="https://www.dingtalk.com" target="_blank">访问</a ></div>
+<div class="box">企业微信<br><a href="https://work.weixin.qq.com" target="_blank">访问</a ></div>
+<div class="box">飞书<br><a href="https://www.feishu.cn" target="_blank">访问</a ></div>
+<div class="box">Telegram<br><a href="https://telegram.org" target="_blank">访问</a ></div>
+
+<!-- ============= 📰 资讯媒体（16个）============= -->
+<div class="tit">📰 资讯媒体</div>
+
+<div class="box">今日头条<br><a 
+href="https://www.toutiao.com" target="_blank">访问</a ></div>
+<div class="box">腾讯新闻<br><a href=" " target="_blank">访问</a ></div>
+<div class="box">网易新闻<br><a href="https://www.163.com" target="_blank">访问</a ></div>
+<div class="box">凤凰新闻<br><a href="https://www.ifeng.com" target="_blank">访问</a ></div>
+<div class="box">澎湃新闻<br><a href="https://www.thepaper.cn" target="_blank">访问</a ></div>
+<div class="box">36氪<br><a href="https://36kr.com" target="_blank">访问</a ></div>
+<div class="box">虎嗅网<br><a href="https://www.huxiu.com" target="_blank">访问</a ></div>
+<div class="box">界面新闻<br><a href="https://www.jiemian.com" target="_blank">访问</a ></div>
+<div class="box">财新网<br><a href="https://www.caixin.com" target="_blank">访问</a ></div>
+<div class="box">第一财经<br><a href="https://www.yicai.com" target="_blank">访问</a ></div>
+<div class="box">新华社<br><a href="https://www.news.cn" target="_blank">访问</a ></div>
+<div class="box">央视网<br><a href="https://www.cctv.com" target="_blank">访问</a ></div>
+<div class="box">人民网<br><a href="https://www.people.com.cn" target="_blank">访问</a ></div>
+<div class="box">光明网<br><a href="https://www.gmw.cn" target="_blank">访问</a ></div>
+<div class="box">经济日报<br><a href="https://www.ce.cn" target="_blank">访问</a ></div>
+<div class="box">央广网<br><a href="https://www.cnr.cn" target="_blank">访问</a ></div>
+
+<!-- ============= 🛒 生活购物（14个）============= -->
+<div class="tit">🛒 生活购物</div>
+
+<div class="box">淘宝<br><a href="https://www.taobao.com" target="_blank">访问</a ></div>
+<div class="box">天猫<br><a href="https://www.tmall.com" target="_blank">访问</a ></div>
+<div class="box">京东<br><a href="https://www.jd.com" target="_blank">访问</a ></div>
+<div class="box">拼多多<br><a href="https://www.pinduoduo.com" target="_blank">访问</a ></div>
+<div class="box">唯品会<br><a href="https://www.vip.com" target="_blank">访问</a ></div>
+<div class="box">苏宁易购<br><a href="https://www.suning.com" target="_blank">访问</a ></div>
+<div class="box">美团<br><a href="https://www.meituan.com" target="_blank">访问</a ></div>
+<div class="box">饿了么<br><a href="https://www.ele.me" target="_blank">访问</a ></div>
+<div class="box">携程<br><a href="https://www.ctrip.com" target="_blank">访问</a ></div>
+<div class="box">去哪儿<br><a href="https://www.qunar.com" target="_blank">访问</a ></div>
+<div class="box">飞猪<br><a href="https://www.fliggy.com" target="_blank">访问</a ></div>
+<div class="box">滴滴出行<br><a href="https://www.didiglobal.com" target="_blank">访问</a ></div>
+<div class="box">大众点评<br><a href="https://www.dianping.com" target="_blank">访问</a ></div>
+<div class="box">闲鱼<br><a href="https://2.taobao.com" target="_blank">访问</a ></div>
+
+<!-- ============= 🔧 实用工具（16个）============= -->
+<div class="tit">🔧 实用工具</div>
+
+<div class="box">百度<br><a href="https://www.baidu.com" target="_blank">访问</a ></div>
+<div class="box">必应<br><a href="https://www.bing.com" target="_blank">访问</a ></div>
+<div class="box">有道翻译<br><a href="https://www.youdao.com" target="_blank">访问</a ></div>
+<div class="box">DeepL翻译<br><a href="https://www.deepl.com" target="_blank">访问</a ></div>
+<div class="box">百度翻译<br><a href="https://fanyi.baidu.com" target="_blank">访问</a ></div>
+<div class="box">阿里云<br><a href="https://www.aliyun.com" target="_blank">访问</a ></div>
+<div class="box">腾讯云<br><a href="https://cloud.tencent.com" target="_blank">访问</a ></div>
+<div class="box">华为云<br><a href="https://www.huaweicloud.com" target="_blank">访问</a ></div>
+<div class="box">GitHub<br><a href="https://github.com" target="_blank">访问</a ></div>
+<div class="box">CSDN<br><a href="https://www.csdn.net" target="_blank">访问</a ></div>
+<div class="box">掘金<br><a href="https://juejin.cn" target="_blank">访问</a ></div>
+<div class="box">ProcessOn<br><a href="https://www.processon.com" target="_blank">访问</a ></div>
+<div class="box">石墨文档<br><a href="https://shimo.im" target="_blank">访问</a ></div>
+<div class="box">腾讯文档<br><a href="https://docs.qq.com" target="_blank">访问</a ></div>
+<div class="box">金山文档<br><a href="https://www.kdocs.cn" target="_blank">访问</a ></div>
+<div class="box">语雀<br><a href="https://www.yuque.com" target="_blank">访问</a ></div>
+
+<!-- ============= 🎬 影音娱乐（8个）============= -->
+<div class="tit">🎬 影音娱乐</div>
+
+<div class="box">网易云音乐<br><a href="https://music.163.com" target="_blank">访问</a ></div>
+<div class="box">QQ音乐<br><a href="https://y.qq.com" target="_blank">访问</a ></div>
+<div class="box">酷狗音乐<br><a href="https://www.kugou.com" target="_blank">访问</a ></div>
+<div class="box">酷我音乐<br><a href="https://www.kuwo.cn" target="_blank">访问</a ></div>
+<div class="box">爱奇艺<br><a href="https://www.iqiyi.com" target="_blank">访问</a ></div>
+<div class="box">腾讯视频<br><a href="https://v.qq.com" target="_blank">访问</a ></div>
+<div class="box">优酷<br><a href="https://www.youku.com" target="_blank">访问</a ></div>
+<div class="box">芒果TV<br><a href="https://www.mgtv.com" target="_blank">访问</a ></div>
+
+<!-- ============= 🏛️ 政务便民（10个）============= -->
+<div class="tit">🏛️ 政务便民</div>
+
+<div class="box">中国政府网<br><a href="https://www.gov.cn" target="_blank">访问</a ></div>
+<div class="box">国家政务平台<br><a href="https://gjzwfw.www.gov.cn" target="_blank">访问</a ></div>
+<div class="box">12306铁路<br><a href="https://www.12306.cn" target="_blank">访问</a ></div>
+<div class="box">交管12123<br><a href="https://122.gov.cn" target="_blank">访问</a ></div>
+<div class="box">个人所得税<br><a href="https://etax.chinatax.gov.cn" target="_blank">访问</a ></div>
+<div class="box">国家医保平台<br><a href="https://www.nhsa.gov.cn" target="_blank">访问</a ></div>
+<div class="box">中国天气网<br><a href="https://www.weather.com.cn" target="_blank">访问</a ></div>
+<div class="box">快递100<br><a href="https://www.kuaidi100.com" target="_blank">访问</a ></div>
+<div class="box">菜鸟裹裹<br><a href="https://www.cainiao.com" target="_blank">访问</a ></div>
+<div class="box">中国公证网<br><a href="https://www.cnnotary.org" target="_blank">访问</a ></div>
+
+</div>
+</body>
+</html>
