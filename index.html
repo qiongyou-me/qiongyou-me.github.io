@@ -3,43 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>66入口·手机三列终极版</title>
+<title>72入口终极全合并版</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
     font-family:"PingFang SC","Microsoft YaHei",sans-serif;
-    background:#f5f7fa;
+    background:#e9ecef;
     padding:15px;
   }
-  .container{max-width:1400px;margin:0 auto;}
-
+  .container{max-width:1600px;margin:0 auto;}
   .title{
-    font-size:20px;
+    font-size:22px;
     font-weight:bold;
-    margin:25px 0 12px 0;
-    color:#1d1d1f;
+    margin:30px 0 15px 0;
+    color:#212529;
+    border-left:4px solid #007bff;
+    padding-left:10px;
   }
-
-  /* 核心布局：手机端强制三列 */
   .grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:12px;
+    gap:15px;
   }
-
   .card{
-    background:#fff;
-    border-radius:14px;
-    padding:18px 12px;
+    background:#ffffff;
+    border-radius:16px;
+    padding:20px 15px;
     text-align:center;
     font-size:16px;
-    color:#333;
-    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    color:#212529;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    transition:all 0.3s ease;
     cursor:pointer;
-    transition:all 0.2s;
   }
   .card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-5px);
+    box-shadow:0 8px 25px rgba(0,123,255,0.15);
     background:#f8f9fa;
   }
   .card a{
@@ -47,169 +46,150 @@
     color:inherit;
     display:block;
   }
-
-  /* 手机屏幕严格保持 3 列 */
-  @media (max-width:600px){
-    .grid{grid-template-columns:repeat(3,1fr);gap:10px;}
-    .card{padding:14px 8px;font-size:14px;}
+  @media (max-width:768px){
+    .grid{gap:12px;}
+    .card{padding:16px 10px;font-size:14px;}
+    .title{font-size:18px;}
   }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<!-- ===================================== -->
-<!-- 🏦 1. 银行主入口（6个） -->
-<!-- ===================================== -->
-<div class="title">🏦 银行主入口</div>
-<div class="grid">
-  <div class="card"><a href=" " target="_blank">工商银行</a ></div>
-  <div class="card"><a href="https://www.ccb.com" target="_blank">建设银行</a ></div>
-  <div class="card"><a href="https://www.abchina.com" target="_blank">农业银行</a ></div>
-  <div class="card"><a href="https://www.boc.cn" target="_blank">中国银行</a ></div>
-  <div class="card"><a href="https://www.bankcomm.com" target="_blank">交通银行</a ></div>
-  <div class="card"><a href="https://www.psbc.com" target="_blank">邮储银行</a ></div>
-</div>
+  <!-- 🏦 1. 银行大全（12个） -->
+  <div class="title">🏦 银行大全</div>
+  <div class="grid">
+    <div class="card"><a href=" " target="_blank">建设银行</a ></div>
+    <div class="card"><a href="https://www.abchina.com" target="_blank">农业银行</a ></div>
+    <div class="card"><a href="https://www.boc.cn" target="_blank">中国银行</a ></div>
+    <div class="card"><a href="https://www.icbc.com.cn" target="_blank">工商银行</a ></div>
+    <div class="card"><a href="https://www.bankcomm.com" target="_blank">交通银行</a ></div>
+    <div class="card"><a href="https://www.cmbchina.com" target="_blank">招商银行</a ></div>
+    <div class="card"><a href="https://www.cib.com.cn" target="_blank">兴业银行</a ></div>
+    <div class="card"><a href="https://www.spdb.com.cn" target="_blank">浦发银行</a ></div>
+    <div class="card"><a href="https://www.cebbank.com" target="_blank">光大银行</a ></div>
+    <div class="card"><a href="https://www.gxb.com.cn" target="_blank">广发银行</a ></div>
+    <div class="card"><a href="https://www.pingan.com" target="_blank">平安银行</a ></div>
+    <div class="card"><a href="https://www.hxb.com.cn" target="_blank">华夏银行</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 💳 2. 信用卡专属 APP（6个） -->
-<!-- ===================================== -->
-<div class="title">💳 信用卡专属 APP</div>
-<div class="grid">
-  <div class="card"><a href="https://creditcard.icbc.com.cn" target="_blank">工银e生活</a ></div>
-  <div class="card"><a href="https://www.ccb.com/creditcard" target="_blank">建行生活</a ></div>
-  <div class="card"><a href="https://www.abchina.com/cn/creditcard" target="_blank">农银生活</a ></div>
-  <div class="card"><a href="https://creditcard.boc.cn" target="_blank">中国银行信用卡</a ></div>
-  <div class="card"><a href="https://creditcardapp.bankcomm.com" target="_blank">买单吧</a ></div>
-  <div class="card"><a href="https://creditcard.cmbchina.com" target="_blank">掌上生活</a ></div>
-</div>
+  <!-- 💳 2. 信用卡专属（6个） -->
+  <div class="title">💳 信用卡专属</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.ccb.com/creditcard" target="_blank">建行生活</a ></div>
+    <div class="card"><a href="https://www.abchina.com/creditcard" target="_blank">农银生活</a ></div>
+    <div class="card"><a href="https://creditcard.boc.cn" target="_blank">中国银行信用卡</a ></div>
+    <div class="card"><a href="https://creditcard.cmbchina.com" target="_blank">掌上生活</a ></div>
+    <div class="card"><a href="https://www.citicbank.com" target="_blank">动卡空间</a ></div>
+    <div class="card"><a href="https://www.cgbchina.com.cn" target="_blank">发现精彩</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🧭 3. 地图与导航（3个） -->
-<!-- ===================================== -->
-<div class="title">🧭 地图导航</div>
-<div class="grid">
-  <div class="card"><a href="https://amap.com" target="_blank">高德地图</a ></div>
-  <div class="card"><a href="https://map.baidu.com" target="_blank">百度地图</a ></div>
-  <div class="card"><a href="https://map.qq.com" target="_blank">腾讯地图</a ></div>
-</div>
+  <!-- 🚗 3. 汽车平台（3个） -->
+  <div class="title">🚗 汽车平台</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.dongchedi.com" target="_blank">懂车帝</a ></div>
+    <div class="card"><a href="https://www.autohome.com.cn" target="_blank">汽车之家</a ></div>
+    <div class="card"><a href="https://www.yiche.com" target="_blank">易车网</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🌍 4. 国际前三报纸（3个） -->
-<!-- ===================================== -->
-<div class="title">🌍 国际前三报纸</div>
-<div class="grid">
-  <div class="card"><a href="https://www.yomiuri.co.jp" target="_blank">读卖新闻</a ></div>
-  <div class="card"><a href="https://www.asahi.com" target="_blank">朝日新闻</a ></div>
-  <div class="card"><a href="https://mainichi.jp" target="_blank">每日新闻</a ></div>
-</div>
+  <!-- 🔍 4. 查询工具（3个） -->
+  <div class="title">🔍 查询工具</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.qcc.com" target="_blank">企查查</a ></div>
+    <div class="card"><a href="https://www.tianyancha.com" target="_blank">天眼查</a ></div>
+    <div class="card"><a href="https://www.aiqicha.com" target="_blank">爱企查</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🇨🇳 5. 国内前三报纸（3个） -->
-<!-- ===================================== -->
-<div class="title">🇨🇳 国内前三报纸</div>
-<div class="grid">
-  <div class="card"><a href="https://www.people.com.cn" target="_blank">人民日报</a ></div>
-  <div class="card"><a href="https://www.gmw.cn" target="_blank">光明日报</a ></div>
-  <div class="card"><a href="https://www.cankaoxiaoxi.com" target="_blank">参考消息</a ></div>
-</div>
+  <!-- 🧭 5. 地图导航（3个） -->
+  <div class="title">🧭 地图导航</div>
+  <div class="grid">
+    <div class="card"><a href="https://amap.com" target="_blank">高德地图</a ></div>
+    <div class="card"><a href="https://map.baidu.com" target="_blank">百度地图</a ></div>
+    <div class="card"><a href="https://map.qq.com" target="_blank">腾讯地图</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🤖 6. AI 工具合集（9个） -->
-<!-- ===================================== -->
-<div class="title">🤖 AI 工具合集</div>
-<div class="grid">
-  <div class="card"><a href="https://openai.com" target="_blank">OpenAI</a ></div>
-  <div class="card"><a href="https://www.anthropic.com" target="_blank">Anthropic</a ></div>
-  <div class="card"><a href="https://www.x.ai" target="_blank">xAI</a ></div>
-  <div class="card"><a href="https://www.baidu.com" target="_blank">百度文心</a ></div>
-  <div class="card"><a href="https://www.toutiao.com" target="_blank">字节跳动</a ></div>
-  <div class="card"><a href="https://www.huawei.com" target="_blank">华为盘古</a ></div>
-  <div class="card"><a href="https://www.doubao.com/chat/" target="_blank">豆包</a ></div>
-  <div class="card"><a href="https://www.qianwen.com" target="_blank">千问</a ></div>
-  <div class="card"><a href="https://chat.deepseek.com" target="_blank">Deepseek</a ></div>
-</div>
+  <!-- 🎵 6. 音乐平台（6个） -->
+  <div class="title">🎵 音乐平台</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.kuwo.cn" target="_blank">酷我音乐</a ></div>
+    <div class="card"><a href="https://www.kugou.com" target="_blank">酷狗音乐</a ></div>
+    <div class="card"><a href="https://y.qq.com" target="_blank">QQ音乐</a ></div>
+    <div class="card"><a href="https://music.163.com" target="_blank">网易云音乐</a ></div>
+    <div class="card"><a href="https://music.migu.cn" target="_blank">咪咕音乐</a ></div>
+    <div class="card"><a href="https://qishui.qq.com" target="_blank">汽水音乐</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🛒 7. 购物与电商（6个） -->
-<!-- ===================================== -->
-<div class="title">🛒 购物与电商</div>
-<div class="grid">
-  <div class="card"><a href="https://www.taobao.com" target="_blank">淘宝</a ></div>
-  <div class="card"><a href="https://www.jd.com" target="_blank">京东</a ></div>
-  <div class="card"><a href="https://www.pinduoduo.com" target="_blank">拼多多</a ></div>
-  <div class="card"><a href="https://www.vip.com" target="_blank">唯品会</a ></div>
-  <div class="card"><a href="https://www.yhd.com" target="_blank">一号店</a ></div>
-  <div class="card"><a href="https://www.gome.com.cn" target="_blank">国美</a ></div>
-</div>
+  <!-- 🤖 7. AI工具合集（9个） -->
+  <div class="title">🤖 AI工具合集</div>
+  <div class="grid">
+    <div class="card"><a href="https://openai.com" target="_blank">OpenAI</a ></div>
+    <div class="card"><a href="https://www.anthropic.com" target="_blank">Claude</a ></div>
+    <div class="card"><a href="https://www.x.ai" target="_blank">xAI</a ></div>
+    <div class="card"><a href="https://www.baidu.com" target="_blank">百度文心</a ></div>
+    <div class="card"><a href="https://www.toutiao.com" target="_blank">字节跳动</a ></div>
+    <div class="card"><a href="https://www.huawei.com" target="_blank">华为盘古</a ></div>
+    <div class="card"><a href="https://www.doubao.com" target="_blank">豆包</a ></div>
+    <div class="card"><a href="https://www.qianwen.com" target="_blank">千问</a ></div>
+    <div class="card"><a href="https://www.deepseek.com" target="_blank">Deepseek</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 📱 8. 社交与资讯（6个） -->
-<!-- ===================================== -->
-<div class="title">📱 社交与资讯</div>
-<div class="grid">
-  <div class="card"><a href="https://weixin.qq.com" target="_blank">微信</a ></div>
-  <div class="card"><a href="https://im.qq.com" target="_blank">QQ</a ></div>
-  <div class="card"><a href="https://www.douyin.com" target="_blank">抖音</a ></div>
-  <div class="card"><a href="https://www.kuaishou.com" target="_blank">快手</a ></div>
-  <div class="card"><a href="https://www.xiaohongshu.com" target="_blank">小红书</a ></div>
-  <div class="card"><a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a ></div>
-</div>
+  <!-- 🛒 8. 购物电商（6个） -->
+  <div class="title">🛒 购物电商</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.taobao.com" target="_blank">淘宝</a ></div>
+    <div class="card"><a href="https://www.jd.com" target="_blank">京东</a ></div>
+    <div class="card"><a href="https://www.pinduoduo.com" target="_blank">拼多多</a ></div>
+    <div class="card"><a href="https://www.vip.com" target="_blank">唯品会</a ></div>
+    <div class="card"><a href="https://www.yhd.com" target="_blank">一号店</a ></div>
+    <div class="card"><a href="https://www.gome.com.cn" target="_blank">国美</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🔎 9. 搜索与资讯（6个） -->
-<!-- ===================================== -->
-<div class="title">🔎 搜索与资讯</div>
-<div class="grid">
-  <div class="card"><a href="https://www.baidu.com" target="_blank">百度搜索</a ></div>
-  <div class="card"><a href="https://www.bing.com" target="_blank">必应搜索</a ></div>
-  <div class="card"><a href="https://www.sogou.com" target="_blank">搜狗搜索</a ></div>
-  <div class="card"><a href="https://www.zhihu.com" target="_blank">知乎</a ></div>
-  <div class="card"><a href="https://www.toutiao.com" target="_blank">今日头条</a ></div>
-  <div class="card"><a href="https://www.163.com" target="_blank">网易新闻</a ></div>
-</div>
+  <!-- 📱 9. 社交资讯（6个） -->
+  <div class="title">📱 社交资讯</div>
+  <div class="grid">
+    <div class="card"><a href="https://weixin.qq.com" target="_blank">微信</a ></div>
+    <div class="card"><a href="https://im.qq.com" target="_blank">QQ</a ></div>
+    <div class="card"><a href="https://www.zhihu.com" target="_blank">知乎</a ></div>
+    <div class="card"><a href="https://weibo.com" target="_blank">微博</a ></div>
+    <div class="card"><a href="https://www.xiaohongshu.com" target="_blank">小红书</a ></div>
+    <div class="card"><a href="https://www.douyin.com" target="_blank">抖音</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🎮 10. 游戏与娱乐（6个） -->
-<!-- ===================================== -->
-<div class="title">🎮 游戏与娱乐</div>
-<div class="grid">
-  <div class="card"><a href="https://game.qq.com" target="_blank">腾讯游戏</a ></div>
-  <div class="card"><a href="https://www.netease.com" target="_blank">网易游戏</a ></div>
-  <div class="card"><a href="https://www.huya.com" target="_blank">虎牙直播</a ></div>
-  <div class="card"><a href="https://www.douyu.com" target="_blank">斗鱼直播</a ></div>
-  <div class="card"><a href="https://www.acfun.com" target="_blank">ACFun</a ></div>
-  <div class="card"><a href="https://www.4399.com" target="_blank">4399</a ></div>
-</div>
+  <!-- 🔎 10. 搜索资讯（6个） -->
+  <div class="title">🔎 搜索资讯</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.baidu.com" target="_blank">百度搜索</a ></div>
+    <div class="card"><a href="https://www.bing.com" target="_blank">必应搜索</a ></div>
+    <div class="card"><a href="https://www.sogou.com" target="_blank">搜狗搜索</a ></div>
+    <div class="card"><a href="https://www.toutiao.com" target="_blank">今日头条</a ></div>
+    <div class="card"><a href="https://www.163.com" target="_blank">网易新闻</a ></div>
+    <div class="card"><a href="https://www.huanqiu.com" target="_blank">环球网</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🏥 11. 生活服务（6个） -->
-<!-- ===================================== -->
-<div class="title">🏥 生活服务</div>
-<div class="grid">
-  <div class="card"><a href="https://www.meituan.com" target="_blank">美团</a ></div>
-  <div class="card"><a href="https://www.ele.me" target="_blank">饿了么</a ></div>
-  <div class="card"><a href="https://www.didiglobal.com" target="_blank">滴滴出行</a ></div>
-  <div class="card"><a href="https://www.122.gov.cn" target="_blank">交管122</a ></div>
-  <div class="card"><a href="https://www.12306.cn" target="_blank">铁路12306</a ></div>
-  <div class="card"><a href="https://www.fliggy.com" target="_blank">飞猪旅行</a ></div>
-</div>
+  <!-- 🎮 11. 游戏娱乐（6个） -->
+  <div class="title">🎮 游戏娱乐</div>
+  <div class="grid">
+    <div class="card"><a href="https://game.qq.com" target="_blank">腾讯游戏</a ></div>
+    <div class="card"><a href="https://www.netease.com" target="_blank">网易游戏</a ></div>
+    <div class="card"><a href="https://www.4399.com" target="_blank">4399小游戏</a ></div>
+    <div class="card"><a href="https://www.huya.com" target="_blank">虎牙直播</a ></div>
+    <div class="card"><a href="https://www.douyu.com" target="_blank">斗鱼直播</a ></div>
+    <div class="card"><a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a ></div>
+  </div>
 
-<!-- ===================================== -->
-<!-- 🚀 12. 补位·超级入口（6个） ✅ 新增！ -->
-<!-- ===================================== -->
-<div class="title">🚀 补位·超级入口</div>
-<div class="grid">
-  <div class="card"><a href="https://www.10086.cn" target="_blank">中国移动</a ></div>
-  <div class="card"><a href="https://www.10010.com" target="_blank">中国联通</a ></div>
-  <div class="card"><a href="https://www.10000.com" target="_blank">中国电信</a ></div>
-  <div class="card"><a href="https://v.qq.com" target="_blank">腾讯视频</a ></div>
-  <div class="card"><a href="https://www.iqiyi.com" target="_blank">爱奇艺</a ></div>
-  <div class="card"><a href="https://www.youku.com" target="_blank">优酷视频</a ></div>
-</div>
+  <!-- 🏥 12. 生活服务（6个） -->
+  <div class="title">🏥 生活服务</div>
+  <div class="grid">
+    <div class="card"><a href="https://www.meituan.com" target="_blank">美团</a ></div>
+    <div class="card"><a href="https://www.ele.me" target="_blank">饿了么</a ></div>
+    <div class="card"><a href="https://www.didiglobal.com" target="_blank">滴滴出行</a ></div>
+    <div class="card"><a href="https://www.12306.cn" target="_blank">铁路12306</a ></div>
+    <div class="card"><a href="https://www.fliggy.com" target="_blank">飞猪旅行</a ></div>
+    <div class="card"><a href="https://www.122.gov.cn" target="_blank">交管122</a ></div>
+  </div>
 
 </div>
+
 </body>
 </html>
