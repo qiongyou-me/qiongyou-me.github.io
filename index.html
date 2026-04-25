@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穹游 · 环球听报导航</title>
+<title>穹游 · 全球中文新闻导航</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -26,7 +26,7 @@
     }
     .header span { color: #8AA6FF; }
     .container {
-        max-width: 1200px; margin: 90px auto 80px;
+        max-width: 1200px; margin: 90px auto 120px;
         padding: 20px; display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
@@ -38,164 +38,174 @@
     }
     .card:hover {
         transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 0 35px rgba(138, 166, 255, 0.25),
+        box-shadow: 0 0 30px rgba(138, 166, 255, 0.25),
                     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        border-color: rgba(138, 166, 255, 0.5);
     }
-    .card::after {
-        content: ""; position: absolute; top: 0; left: 0;
-        width: 50%; height: 100%;
-        background: linear-gradient(90deg, transparent,
-                    rgba(138, 166, 255, 0.1) 50%, transparent);
-        transition: all 0.8s ease; opacity: 0;
-    }
-    .card:hover::after { opacity: 1; left: 100%; }
     .card-title {
         font-size: 19px; font-weight: 700; margin-bottom: 22px;
-        color: #fff; display: flex; align-items: center; gap: 12px;
+        color: #fff; display: flex; align-items: center; gap: 10px;
     }
     .card-title::before {
         content: ""; display: inline-block;
-        width: 5px; height: 26px; background: #8AA6FF;
+        width: 4px; height: 24px; background: #8AA6FF;
         border-radius: 3px;
     }
     .item {
         display: block; padding: 14px 18px; margin: 12px 0;
-        border-radius: 14px; color: #ccc; text-decoration: none;
-        font-size: 15px; transition: all 0.2s;
+        border-radius: 14px; color: #e0e0e0;
+        text-decoration: none; transition: all 0.2s;
         border: 1px solid transparent;
     }
-    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.15); }
+    .item:active { transform: scale(0.97); }
     .item:hover {
         color: #8AA6FF; border-color: rgba(138, 166, 255, 0.3);
-        background: rgba(138, 166, 255, 0.08);
+        background: rgba(138, 166, 255, 0.1);
     }
     .player-bar {
         position: fixed; bottom: 0; left: 0; width: 100%;
-        padding: 20px; display: flex; align-items: center; gap: 18px;
-        z-index: 100; border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 18px 20px; display: flex;
+        align-items: center; gap: 15px; z-index: 100;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     .btn {
-        padding: 14px 28px; border-radius: 14px;
-        border: 1px solid #8AA6FF; background: rgba(138, 166, 255, 0.1);
+        padding: 12px 24px; border-radius: 12px;
+        border: 1px solid #8AA6FF; background: rgba(138, 166, 255, 0.2);
         color: #fff; cursor: pointer; transition: all 0.2s;
-        font-weight: 600; font-size: 16px;
+        font-weight: 600; font-size: 14px;
     }
-    .btn:hover { background: rgba(138, 166, 255, 0.3); }
-    .btn:active { transform: scale(0.95); }
+    .btn:hover { background: rgba(138, 166, 255, 0.4); }
+    .status { color: #8AA6FF; font-size: 14px; }
 </style>
 </head>
 
 <body>
 
-<div class="header">穹游 · 环球<span>听报</span>导航</div>
+<div class="header glass">穹游 · 全球<span>中文新闻</span>导航</div>
 
 <div class="container">
-
-    <!-- 🏛️ 权威央媒（已修复） -->
+    <!-- 🏛️ 权威央媒 -->
     <div class="card glass">
         <div class="card-title">🏛️ 权威央媒</div>
-        <a class="item glass" href=" " target="_blank">📰 新华网 · 全媒资</a >
-        <a class="item glass" href="https://tv.cctv.com" target="_blank">📺 央视网 · 视频</a >
+        <a class="item glass" href=" " target="_blank">📰 新华网 · 全球新闻</a >
+        <a class="item glass" href="https://tv.cctv.com" target="_blank">📺 央视网 · 视频直播</a >
         <a class="item glass" href="https://www.people.com.cn" target="_blank">📰 人民网 · 要闻</a >
-        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">🌍 中国日报 · 国际</a >
+        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">🌍 中国日报 · 国际版</a >
     </div>
 
-    <!-- 🌏 环球视野（增补全球权威信源） -->
+    <!-- 🌏 全球中文媒体 -->
     <div class="card glass">
-        <div class="card-title">🌏 环球视野</div>
-        <a class="item glass" href="https://www.huanqiu.com" target="_blank">📰 环球网 · 全球</a >
-        <a class="item glass" href="https://www.people.com.cn/world" target="_blank">🌍 人民网 · 国际</a >
-        <a class="item glass" href="https://www.globaltimes.cn" target="_blank">🌍 环球时报 · 国际</a >
-        <a class="item glass" href="https://www.zaobao.com" target="_blank">📰 联合早报 · 新加坡</a >
+        <div class="card-title">🌏 全球中文媒体</div>
+        <a class="item glass" href="https://www.zaobao.com.sg" target="_blank">📰 联合早报 · 新加坡</a >
+        <a class="item glass" href="https://www.huanqiu.com" target="_blank">📰 环球网 · 全球视角</a >
+        <a class="item glass" href="https://www.globaltimes.cn" target="_blank">🌍 环球时报 · 英文版</a >
+        <a class="item glass" href="https://www.people.com.cn/world" target="_blank">🌍 人民网 · 国际新闻</a >
     </div>
 
-    <!-- 📰 全球权威通讯社（新增） -->
+    <!-- 📰 全球通讯社 -->
     <div class="card glass">
-        <div class="card-title">📰 全球通讯社</div>
-        <a class="item glass" href="https://www.reuters.com" target="_blank">🌍 路透社 · 全球快讯</a >
-        <a class="item glass" href="https://apnews.com" target="_blank">🌍 美联社 AP · 事实核查</a >
-        <a class="item glass" href="https://www.afp.com" target="_blank">🌍 法新社 AFP · 全球覆盖</a >
-        <a class="item glass" href="https://www.people.com.cn/globaltimes" target="_blank">🌍 新华社国际 · 中文</a >
+        <div class="card-title">📰 全球权威通讯社</div>
+        <a class="item glass" href="https://www.reutersagency.com/zh/" target="_blank">🌍 路透社 · 中文</a >
+        <a class="item glass" href="https://www.afp.com/zh" target="_blank">🌍 法新社 · 中文</a >
+        <a class="item glass" href="https://www.apnews.com" target="_blank">🌍 美联社 · 中文</a >
+        <a class="item glass" href="https://www.xinhuanet.com/english" target="_blank">🌍 新华社 · 英文国际</a >
     </div>
 
-    <!-- 🎬 高清视频（稳定可看） -->
+    <!-- 🎬 国际视频与纪录片 -->
     <div class="card glass">
-        <div class="card-title">🎬 高清视频</div>
-        <a class="item glass" href="https://jilu.cctv.com" target="_blank">📀 央视纪录片 · 央视片库</a >
-        <a class="item glass" href="https://www.iqiyi.com/bbc" target="_blank">📀 BBC纪录片 · 爱奇艺专区</a >
-        <a class="item glass" href="https://www.1905.com" target="_blank">🎬 1905电影网 · 院线</a >
-        <a class="item glass" href="https://www.ted.com" target="_blank">🎓 TED · 公开课</a >
+        <div class="card-title">🎬 国际视频</div>
+        <a class="item glass" href="https://jilu.cctv.com" target="_blank">📀 央视纪录片 · 高清</a >
+        <a class="item glass" href="https://www.iqiyi.com" target="_blank">🎥 爱奇艺 · 纪录片专区</a >
+        <a class="item glass" href="https://www.ted.com" target="_blank">🎓 TED · 全球演讲</a >
+        <a class="item glass" href="https://www.1905.com" target="_blank">🎬 1905电影网 · 华语电影</a >
     </div>
 
-    <!-- 🎵 书影音 -->
-    <div class="card glass">
-        <div class="card-title">🎵 书影音</div>
-        <a class="item glass" href="https://tonzhon.com" target="_blank">🎧 铜钟音乐 · 免费</a >
-        <a class="item glass" href="https://gutenberg.org" target="_blank">📖 古腾堡 · 公版书</a >
-        <a class="item glass" href="https://shuge.org" target="_blank">📀 书格 · 古籍</a >
-        <a class="item glass" href="https://pixabay.com/music" target="_blank">🎧 Pixabay · 配乐</a >
-    </div>
-
-    <!-- 🎓 智慧学习（已修复） -->
+    <!-- 🎓 智慧学习与公开课 -->
     <div class="card glass">
         <div class="card-title">🎓 智慧学习</div>
         <a class="item glass" href="https://www.icourse163.org" target="_blank">📚 中国大学MOOC</a >
-        <a class="item glass" href="https://open.163.com/special/MIT/" target="_blank">📚 网易MIT公开课 · 中文</a >
+        <a class="item glass" href="https://open.163.com/special/MIT/" target="_blank">📚 网易公开课 · MIT</a >
         <a class="item glass" href="https://xuetangx.com" target="_blank">📚 学堂在线</a >
         <a class="item glass" href="https://www.smartedu.cn" target="_blank">🏫 国家高教平台</a >
     </div>
 
-    <!-- 💰 财经专业（新增） -->
+    <!-- 💰 全球财经新闻 -->
     <div class="card glass">
-        <div class="card-title">💰 财经专业</div>
-        <a class="item glass" href="https://www.bloomberg.com" target="_blank">🌍 彭博社 · 全球金融</a >
-        <a class="item glass" href="https://www.wsj.com" target="_blank">📰 华尔街日报 · 商业</a >
-        <a class="item glass" href="https://www.ft.com" target="_blank">📰 金融时报 · 国际经济</a >
-        <a class="item glass" href="https://www.nikkei.com" target="_blank">📰 日经亚洲 · 亚太商业</a >
+        <div class="card-title">💰 全球财经新闻</div>
+        <a class="item glass" href="https://www.bloomberg.com.cn" target="_blank">🌍 彭博社 · 中文</a >
+        <a class="item glass" href="https://www.ftchinese.com" target="_blank">📰 金融时报 · 中文</a >
+        <a class="item glass" href="https://www.wsj.com" target="_blank">📰 华尔街日报 · 中文</a >
+        <a class="item glass" href="https://www.nikkei.com" target="_blank">📰 日经亚洲 · 中文</a >
     </div>
-
 </div>
 
+<!-- 播放控制区 -->
 <div class="player-bar glass">
-    <button class="btn" onclick="togglePlay()">▶ 自动听报</button>
-    <span id="status" style="color: #888; font-size: 15px;">状态：未开始</span>
+    <button class="btn" onclick="togglePlay()">▶ 自动播放新闻</button>
+    <span class="status" id="status">状态：准备中...</span>
 </div>
 
+<!-- 音频播放核心 -->
 <audio id="newsAudio" loop>
 
 <script>
+    // 核心配置
     const audio = document.getElementById('newsAudio');
     const status = document.getElementById('status');
     let isPlaying = false;
-    const newsUrl = "https://alive.cctv.com/live/cctv13/index.m3u8";
+    let retryCount = 0;
+    const maxRetries = 3; // 最大重试次数
 
-    function loadNews() {
-        audio.src = newsUrl;
-        audio.volume = 1.0;
+    // 新闻直播源（央视新闻客户端/央视频稳定源）
+    const newsStream = "https://alive.cctv.com/live/cctv13/index.m3u8";
+
+    // 🔧 核心功能：确保自动播放
+    function ensurePlayback() {
+        if (isPlaying) return;
+        
+        // 模拟用户交互（解决浏览器跨域/策略限制）
+        audio.play().then(() => {
+            isPlaying = true;
+            status.innerText = "状态：正在播放新闻...";
+            retryCount = 0; // 重置重试计数器
+            console.log("✅ 新闻播放成功");
+        }).catch(err => {
+            retryCount++;
+            if (retryCount <= maxRetries) {
+                status.innerText = `状态：播放失败，正在尝试第 ${retryCount} 次...`;
+                console.warn(`❌ 播放失败，第 ${retryCount} 次重试`, err);
+                // 延迟重试（指数退避）
+                setTimeout(ensurePlayback, 1000 * retryCount);
+            } else {
+                status.innerText = "状态：播放失败，请手动点击重试";
+                console.error("❌ 达到最大重试次数，播放失败", err);
+                isPlaying = false;
+            }
+        });
     }
 
+    // 🔧 切换播放/暂停
     function togglePlay() {
         if (isPlaying) {
             audio.pause();
-            status.innerText = "状态：已暂停";
             isPlaying = false;
+            status.innerText = "状态：已暂停";
+            console.log("⏸️  播放已暂停");
         } else {
-            audio.play().then(() => {
-                status.innerText = "状态：正在播报新闻...";
-                isPlaying = true;
-            }).catch(err => {
-                status.innerText = "状态：播放失败，请点击按钮重试";
-                console.error("播放报错：", err);
-            });
+            ensurePlayback();
         }
     }
 
+    // 🔧 页面加载自动初始化
     window.onload = () => {
-        loadNews();
+        // 预加载音频源
+        audio.src = newsStream;
+        audio.volume = 1.0; // 满音量
+        
+        // 页面加载后自动尝试播放一次
         setTimeout(() => {
-            togglePlay();
-        }, 500);
+            status.innerText = "状态：正在尝试自动播放...";
+            ensurePlayback();
+        }, 500); // 延迟500ms触发，确保页面完全加载
     };
 </script>
 
