@@ -188,15 +188,6 @@
         <a class="item glass" href="https://www.smartedu.cn" target="_blank">国家高教平台</a >
     </div>
 
-    <!-- 素材工具 -->
-    <div class="card glass">
-        <div class="card-title">🖼️ 素材工具</div>
-        <a class="item glass" href="https://www.pexels.com" target="_blank">Pexels · 高清</a >
-        <a class="item glass" href="https://unsplash.com" target="_blank">Unsplash · 壁纸</a >
-        <a class="item glass" href="https://www.videvo.net" target="_blank">Videvo · 视频</a >
-        <a class="item glass" href="https://pluto.tv" target="_blank">Pluto TV · 直播</a >
-    </div>
-
 </div>
 
 <!-- 播放控制条 -->
@@ -206,7 +197,7 @@
 </div>
 
 <!-- 核心：新闻广播源（绝对稳定） -->
-<audio id="newsAudio" loop autoplay>
+<audio id="newsAudio" loop>
 
 <script>
 const audio = document.getElementById('newsAudio');
@@ -214,8 +205,8 @@ const status = document.getElementById('status');
 let isPlaying = false;
 
 // 👇 稳定公开新闻广播流（所有浏览器通用）
-// 新华社新闻广播（稳定、可自动播放）
-const newsUrl = "https://news.xinhuanet.com/audio/xinwen.mp3";
+// 央视新闻/中国之声 新闻直播流（官方直供，稳定高可用）[[(央视新闻)]](https://content-static.cctvnews.cctv.com/snow-book/index.html?f_link_type=f_linkinlinenote&flow_extra=eyJkb2NfcG9zaXRpb24iOjAsImRvY19pZCI6IjdlNTE3YThjMTUyZmZmMGEtM2NkZmVkNzNkZmVkOWMyMyIsImlubGluZV9kaXNwbGF5X3Bvc2l0aW9uIjowfQ%3D%3D&item_id=17347671621547027891 "[(央视新闻)]")
+const newsUrl = "https://alive.cctv.com/live/cctv13/index.m3u8"; // CCTV-13新闻频道直播流[[(CCTV节...)]](https://tv.cctv.cn/cctv13/?f_link_type=f_linkinlinenote&flow_extra=eyJkb2NfaWQiOiIyZDMwNzIyOGRjNDhhODBjLTQ0ZjExYmM3YTZiNjZlNzAiLCJpbmxpbmVfZGlzcGxheV9wb3NpdGlvbiI6MCwiZG9jX3Bvc2l0aW9uIjowfQ%3D%3D "[(CCTV节...)]")
 
 function loadNews() {
     audio.src = newsUrl;
@@ -228,9 +219,13 @@ function togglePlay() {
         status.innerText = "状态：已暂停";
         isPlaying = false;
     } else {
-        audio.play();
-        status.innerText = "状态：正在播报新闻...";
-        isPlaying = true;
+        audio.play().then(() => {
+            status.innerText = "状态：正在播报新闻...";
+            isPlaying = true;
+        }).catch(err => {
+            status.innerText = "状态：播放失败，请重试";
+            console.error("播放错误：", err);
+        });
     }
 }
 
