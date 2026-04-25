@@ -1,109 +1,106 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>网页版应用导航</title>
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-        background: #050508; color: #e0e0e0;
-        overflow-x: hidden; line-height: 1.6;
-    }
-    .glass {
-        backdrop-filter: blur(18px) saturate(120%);
-        -webkit-backdrop-filter: blur(18px);
-        background: rgba(15, 15, 25, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .header {
-        position: fixed; top: 0; left: 0; width: 100%;
-        padding: 22px 0; text-align: center;
-        font-size: 26px; font-weight: 700;
-        letter-spacing: 2px; z-index: 100;
-        border-bottom: 1px solid rgba(138, 166, 255, 0.2);
-    }
-    .header span { color: #8AA6FF; }
-    .container {
-        max-width: 1400px; margin: 120px auto 80px;
-        padding: 20px; display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 28px;
-    }
-    .card {
-        padding: 30px; border-radius: 24px;
-        position: relative; overflow: hidden;
-        transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    .card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 0 45px rgba(138, 166, 255, 0.3),
-                    inset 0 1px 0 rgba(255,255,255,0.15);
-        border-color: rgba(138, 166, 255, 0.6);
-    }
-    .card::after {
-        content: ""; position: absolute; top: 0; left: 0;
-        width: 50%; height: 100%;
-        background: linear-gradient(90deg, transparent,
-                    rgba(138, 166, 255, 0.12) 50%, transparent);
-        transition: all 0.9s ease; opacity: 0;
-    }
-    .card:hover::after { opacity: 1; left: 100%; }
-    .card-title {
-        font-size: 22px; font-weight: 700; margin-bottom: 28px;
-        color: #fff; display: flex; align-items: center; gap: 14px;
-    }
-    .card-title::before {
-        content: ""; display: inline-block;
-        width: 6px; height: 28px; background: #8AA6FF;
-        border-radius: 4px;
-    }
-    .item {
-        display: block; padding: 18px 22px; margin: 16px 0;
-        border-radius: 18px; color: #ccc;
-        text-decoration: none; font-size: 16px;
-        transition: all 0.25s; border: 1px solid transparent;
-    }
-    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.18); }
-    .item:hover {
-        color: #8AA6FF; border-color: rgba(138, 166, 255, 0.4);
-        background: rgba(138, 166, 255, 0.1);
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权威中文导航站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #e9ecef; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: #f8f9fa; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .card-title { color: #1f2937; margin-bottom: 20px; font-size: 18px; font-weight: 600; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .grid-item { display: block; padding: 16px; background: #fff; border-radius: 10px; color: #1f2937; text-decoration: none; font-weight: 600; transition: all 0.2s ease; border: 1px solid #e5e7eb; }
+        .grid-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #6366f1; }
+    </style>
 </head>
 <body>
-
-<div class="header glass">网页版<span>应用导航</span></div>
-
 <div class="container">
 
-    <!-- 1. 🗞️ 全球中文报纸（专家精选） -->
-    <div class="card glass">
-        <div class="card-title">🌍 国际中文报纸</div>
-        <a class="item" href=" " target="_blank">📄 中国日报（全球发行）</a >
-        <a class="item" href="https://www.zaobao.com.sg" target="_blank">📄 联合早报（新加坡权威）</a >
-        <a class="item" href="https://www.singtao.ca" target="_blank">📄 星岛日报（全球华语）</a >
+    <!-- 1. 权威央媒新闻 -->
+    <div class="card">
+        <div class="card-title">📄 权威央媒新闻站 (免登直连)</div>
+        <div class="grid">
+            <a href=" " target="_blank" class="grid-item">📄 人民网</a >
+            <a href="https://www.xinhuanet.com" target="_blank" class="grid-item">📰 新华网</a >
+            <a href="https://www.cctv.com" target="_blank" class="grid-item">📺 央视网</a >
+            <a href="https://www.chinanews.com.cn" target="_blank" class="grid-item">🗞️ 中国新闻网</a >
+            <a href="https://www.haiwainet.cn" target="_blank" class="grid-item">🌍 海外网</a >
+            <a href="https://www.chinadaily.com.cn" target="_blank" class="grid-item">🇨🇳 中国日报网</a >
+            <a href="https://www.gmw.cn" target="_blank" class="grid-item">💡 光明网</a >
+            <a href="https://www.cri.cn" target="_blank" class="grid-item">🎙️ 国际在线</a >
+            <a href="https://www.cnr.cn" target="_blank" class="grid-item">📻 央广网</a >
+            <a href="https://www.china.com.cn" target="_blank" class="grid-item">🏛️ 中国网</a >
+            <a href="https://www.ce.cn" target="_blank" class="grid-item">💰 中国经济网</a >
+            <a href="https://www.81.cn" target="_blank" class="grid-item">🪖 中国军网</a >
+        </div>
     </div>
 
-    <!-- 2. 📻 全球中文新闻（专家精选） -->
-    <div class="card glass">
-        <div class="card-title">🌐 国际中文新闻</div>
-        <a class="item" href="https://www.dw.com/zh" target="_blank">🌐 德国之声（DW中文）</a >
-        <a class="item" href="https://www.france24.com/zh" target="_blank">🌐 法国24（中文频道）</a >
-        <a class="item" href="https://www.news.cn/world" target="_blank">🌐 新华网（国际频道）</a >
+    <!-- 2. 环球视角与国际资讯 -->
+    <div class="card">
+        <div class="card-title">🌐 环球视角与国际资讯</div>
+        <div class="grid">
+            <a href="https://www.huanqiu.com" target="_blank" class="grid-item">🌎 环球网</a >
+            <a href="https://www.zaobao.com" target="_blank" class="grid-item">🗞️ 联合早报</a >
+            <a href="https://www.thepaper.cn" target="_blank" class="grid-item">📄 澎湃新闻</a >
+            <a href="https://www.caixin.com" target="_blank" class="grid-item">💡 财新网</a >
+            <a href="https://www.ifeng.com" target="_blank" class="grid-item">📺 凤凰网</a >
+            <a href="https://www.sina.com.cn" target="_blank" class="grid-item">🌊 新浪新闻</a >
+            <a href="https://www.qq.com" target="_blank" class="grid-item">🐧 腾讯新闻</a >
+            <a href="https://www.yicai.com" target="_blank" class="grid-item">📈 第一财经</a >
+            <a href="https://www.nbd.com.cn" target="_blank" class="grid-item">🗞️ 每日经济新闻</a >
+            <a href="https://www.bjnews.com.cn" target="_blank" class="grid-item">🏛️ 北京日报</a >
+            <a href="https://www.jfdaily.com" target="_blank" class="grid-item">💡 解放网</a >
+            <a href="https://www.scmp.com" target="_blank" class="grid-item">🇭🇰 南华早报</a >
+        </div>
     </div>
 
-    <!-- 3. 🎬 全球中文影视（专家精选） -->
-    <div class="card glass">
-        <div class="card-title">🎬 中文影视</div>
-        <a class="item" href="https://www.youku.com" target="_blank">🎬 优酷</a >
-        <a class="item" href="https://v.qq.com" target="_blank">🎬 腾讯视频</a >
-        <a class="item" href="https://www.iq.com" target="_blank">🎬 爱奇艺</a >
-        <a class="item" href="https://www.bilibili.com" target="_blank">🎬 B站</a >
+    <!-- 3. 汽车财经与行业深度 -->
+    <div class="card">
+        <div class="card-title">🚗 汽车财经与行业深度</div>
+        <div class="grid">
+            <a href="https://www.autohome.com.cn" target="_blank" class="grid-item">🚘 汽车之家</a >
+            <a href="https://m.autotimes.com.cn" target="_blank" class="grid-item">🚙 汽车周报</a >
+            <a href="https://www.cnautonews.com" target="_blank" class="grid-item">🚛 中国汽车报</a >
+            <a href="https://www.yiche.com" target="_blank" class="grid-item">🚗 易车网</a >
+            <a href="https://money.163.com" target="_blank" class="grid-item">💰 网易财经</a >
+            <a href="https://finance.sina.com.cn" target="_blank" class="grid-item">📊 新浪财经</a >
+            <a href="https://www.stcn.com" target="_blank" class="grid-item">📰 证券时报</a >
+            <a href="https://www.ccstock.cn" target="_blank" class="grid-item">💹 财经界</a >
+        </div>
+    </div>
+
+    <!-- 4. 科技互联网与数码前沿 -->
+    <div class="card">
+        <div class="card-title">🤖 科技互联网与数码前沿</div>
+        <div class="grid">
+            <a href="https://www.ithome.com" target="_blank" class="grid-item">💻 IT之家</a >
+            <a href="https://www.cnbeta.com" target="_blank" class="grid-item">📡 CNBeta</a >
+            <a href="https://www.techweb.com.cn" target="_blank" class="grid-item">🌐 TechWeb</a >
+            <a href="https://www.donews.com" target="_blank" class="grid-item">📝 Donews</a >
+            <a href="https://www.pconline.com.cn" target="_blank" class="grid-item">🖥️ 太平洋科技</a >
+            <a href="https://www.zol.com.cn" target="_blank" class="grid-item">💡 中关村在线</a >
+            <a href="https://www.ifanr.com" target="_blank" class="grid-item">🍎 爱范儿</a >
+            <a href="https://www.leiphone.com" target="_blank" class="grid-item">🤖 雷锋网</a >
+        </div>
+    </div>
+
+    <!-- 5. 生活服务与健康医疗 -->
+    <div class="card">
+        <div class="card-title">🏠 生活服务与健康医疗</div>
+        <div class="grid">
+            <a href="https://www.baidu.com" target="_blank" class="grid-item">🔍 百度搜索</a >
+            <a href="https://www.12306.cn" target="_blank" class="grid-item">🚄 铁路12306</a >
+            <a href="https://www.12365.cn" target="_blank" class="grid-item">🛡️ 12365质量监督</a >
+            <a href="http://www.nhc.gov.cn" target="_blank" class="grid-item">🏥 国家卫健委</a >
+            <a href="http://www.samr.gov.cn" target="_blank" class="grid-item">📦 市场监管总局</a >
+            <a href="https://www.drugadmin.nmpa.gov.cn" target="_blank" class="grid-item">💊 国家药监局</a >
+            <a href="http://www.nhc.gov.cn/jkss/index.shtml" target="_blank" class="grid-item">🏃 健康中国</a >
+            <a href="https://www.12320.cn" target="_blank" class="grid-item">📞 12320卫生热线</a >
+        </div>
     </div>
 
 </div>
-
 </body>
 </html>
