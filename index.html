@@ -5,23 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>穹游 · 环球听报导航</title>
 <style>
-    /* 🔹 全局基础样式 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
         font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
         background: #050508; color: #e0e0e0;
         overflow-x: hidden; line-height: 1.6;
     }
-
-    /* 🔹 磨砂玻璃背景（通用类） */
     .glass {
         backdrop-filter: blur(18px) saturate(120%);
         -webkit-backdrop-filter: blur(18px);
         background: rgba(15, 15, 25, 0.85);
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    /* 🔹 顶部标题栏 */
     .header {
         position: fixed; top: 0; left: 0; width: 100%;
         padding: 22px 0; text-align: center;
@@ -30,16 +25,12 @@
         border-bottom: 1px solid rgba(138, 166, 255, 0.2);
     }
     .header span { color: #8AA6FF; }
-
-    /* 🔹 主容器（网格布局） */
     .container {
         max-width: 1200px; margin: 90px auto 80px;
         padding: 20px; display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
     }
-
-    /* 🔹 栏目卡片 */
     .card {
         padding: 26px; border-radius: 20px;
         position: relative; overflow: hidden;
@@ -51,8 +42,6 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.1);
         border-color: rgba(138, 166, 255, 0.5);
     }
-
-    /* 🔹 卡片扫光特效 */
     .card::after {
         content: ""; position: absolute; top: 0; left: 0;
         width: 50%; height: 100%;
@@ -61,8 +50,6 @@
         transition: all 0.8s ease; opacity: 0;
     }
     .card:hover::after { opacity: 1; left: 100%; }
-
-    /* 🔹 卡片标题 */
     .card-title {
         font-size: 19px; font-weight: 700; margin-bottom: 22px;
         color: #fff; display: flex; align-items: center; gap: 12px;
@@ -72,8 +59,6 @@
         width: 5px; height: 26px; background: #8AA6FF;
         border-radius: 3px;
     }
-
-    /* 🔹 链接按钮 */
     .item {
         display: block; padding: 14px 18px; margin: 12px 0;
         border-radius: 14px; color: #ccc; text-decoration: none;
@@ -85,15 +70,11 @@
         color: #8AA6FF; border-color: rgba(138, 166, 255, 0.3);
         background: rgba(138, 166, 255, 0.08);
     }
-
-    /* 🔹 底部播放控制栏 */
     .player-bar {
         position: fixed; bottom: 0; left: 0; width: 100%;
         padding: 20px; display: flex; align-items: center; gap: 18px;
         z-index: 100; border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
-
-    /* 🔹 播放按钮 */
     .btn {
         padding: 14px 28px; border-radius: 14px;
         border: 1px solid #8AA6FF; background: rgba(138, 166, 255, 0.1);
@@ -107,13 +88,11 @@
 
 <body>
 
-<!-- 顶部标题 -->
 <div class="header">穹游 · 环球<span>听报</span>导航</div>
 
-<!-- 主内容区 -->
 <div class="container">
 
-    <!-- 🏛️ 国内权威媒体 -->
+    <!-- 🏛️ 权威央媒（已修复） -->
     <div class="card glass">
         <div class="card-title">🏛️ 权威央媒</div>
         <a class="item glass" href=" " target="_blank">📰 新华网 · 全媒资</a >
@@ -122,22 +101,31 @@
         <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">🌍 中国日报 · 国际</a >
     </div>
 
-    <!-- 🌏 环球资讯 -->
+    <!-- 🌏 环球视野（增补全球权威信源） -->
     <div class="card glass">
         <div class="card-title">🌏 环球视野</div>
         <a class="item glass" href="https://www.huanqiu.com" target="_blank">📰 环球网 · 全球</a >
-        <a class="item glass" href="https://www.reuters.com" target="_blank">🌍 路透社 · 全球</a >
-        <a class="item glass" href="https://www.bbc.com" target="_blank">🌍 BBC · 国际</a >
-        <a class="item glass" href="https://www.dw.com" target="_blank">🌍 德国之声 · 多媒</a >
+        <a class="item glass" href="https://www.people.com.cn/world" target="_blank">🌍 人民网 · 国际</a >
+        <a class="item glass" href="https://www.globaltimes.cn" target="_blank">🌍 环球时报 · 国际</a >
+        <a class="item glass" href="https://www.zaobao.com" target="_blank">📰 联合早报 · 新加坡</a >
     </div>
 
-    <!-- 🎬 视频专区 -->
+    <!-- 📰 全球权威通讯社（新增） -->
+    <div class="card glass">
+        <div class="card-title">📰 全球通讯社</div>
+        <a class="item glass" href="https://www.reuters.com" target="_blank">🌍 路透社 · 全球快讯</a >
+        <a class="item glass" href="https://apnews.com" target="_blank">🌍 美联社 AP · 事实核查</a >
+        <a class="item glass" href="https://www.afp.com" target="_blank">🌍 法新社 AFP · 全球覆盖</a >
+        <a class="item glass" href="https://www.people.com.cn/globaltimes" target="_blank">🌍 新华社国际 · 中文</a >
+    </div>
+
+    <!-- 🎬 高清视频（稳定可看） -->
     <div class="card glass">
         <div class="card-title">🎬 高清视频</div>
-        <a class="item glass" href="https://doc.cctv.com" target="_blank">📀 央视纪录片 · 深度</a >
+        <a class="item glass" href="https://jilu.cctv.com" target="_blank">📀 央视纪录片 · 央视片库</a >
+        <a class="item glass" href="https://www.iqiyi.com/bbc" target="_blank">📀 BBC纪录片 · 爱奇艺专区</a >
         <a class="item glass" href="https://www.1905.com" target="_blank">🎬 1905电影网 · 院线</a >
         <a class="item glass" href="https://www.ted.com" target="_blank">🎓 TED · 公开课</a >
-        <a class="item glass" href="https://www.bbc.com/tv" target="_blank">📀 BBC · 纪录片</a >
     </div>
 
     <!-- 🎵 书影音 -->
@@ -149,42 +137,44 @@
         <a class="item glass" href="https://pixabay.com/music" target="_blank">🎧 Pixabay · 配乐</a >
     </div>
 
-    <!-- 🎓 学习科研 -->
+    <!-- 🎓 智慧学习（已修复） -->
     <div class="card glass">
         <div class="card-title">🎓 智慧学习</div>
         <a class="item glass" href="https://www.icourse163.org" target="_blank">📚 中国大学MOOC</a >
-        <a class="item glass" href="https://ocw.mit.edu" target="_blank">📚 MIT 公开课</a >
+        <a class="item glass" href="https://open.163.com/special/MIT/" target="_blank">📚 网易MIT公开课 · 中文</a >
         <a class="item glass" href="https://xuetangx.com" target="_blank">📚 学堂在线</a >
         <a class="item glass" href="https://www.smartedu.cn" target="_blank">🏫 国家高教平台</a >
     </div>
 
+    <!-- 💰 财经专业（新增） -->
+    <div class="card glass">
+        <div class="card-title">💰 财经专业</div>
+        <a class="item glass" href="https://www.bloomberg.com" target="_blank">🌍 彭博社 · 全球金融</a >
+        <a class="item glass" href="https://www.wsj.com" target="_blank">📰 华尔街日报 · 商业</a >
+        <a class="item glass" href="https://www.ft.com" target="_blank">📰 金融时报 · 国际经济</a >
+        <a class="item glass" href="https://www.nikkei.com" target="_blank">📰 日经亚洲 · 亚太商业</a >
+    </div>
+
 </div>
 
-<!-- 播放控制区 -->
 <div class="player-bar glass">
     <button class="btn" onclick="togglePlay()">▶ 自动听报</button>
     <span id="status" style="color: #888; font-size: 15px;">状态：未开始</span>
 </div>
 
-<!-- 🔊 音频元素（隐藏） -->
 <audio id="newsAudio" loop>
 
 <script>
-    /* 🔹 核心变量 */
     const audio = document.getElementById('newsAudio');
     const status = document.getElementById('status');
     let isPlaying = false;
-
-    /* 🔹 稳定新闻广播源（央视新闻频道） */
     const newsUrl = "https://alive.cctv.com/live/cctv13/index.m3u8";
 
-    /* 🔹 加载新闻流 */
     function loadNews() {
         audio.src = newsUrl;
-        audio.volume = 1.0; // 满音量
+        audio.volume = 1.0;
     }
 
-    /* 🔹 播放/暂停切换 */
     function togglePlay() {
         if (isPlaying) {
             audio.pause();
@@ -201,10 +191,8 @@
         }
     }
 
-    /* 🔹 页面初始化 */
     window.onload = () => {
         loadNews();
-        // 为了兼容性，页面加载后自动播放一次
         setTimeout(() => {
             togglePlay();
         }, 500);
