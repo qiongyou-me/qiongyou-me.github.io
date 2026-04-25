@@ -1,301 +1,219 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实用应用导航</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #e8edf3, #dce3ec);
-            padding: 20px;
-        }
-        .search-box {
-            background: #fff;
-            border-radius: 24px;
-            padding: 10px 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .search-box input {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 16px;
-            background: transparent;
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-        .title {
-            font-size: 19px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-            border-left: 4px solid #4285F4;
-            padding-left: 10px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .item {
-            background: #fff;
-            border: none;
-            border-radius: 12px;
-            padding: 15px 0;
-            font-size: 16px;
-            color: #333;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .item:hover {
-            background: #f0f4ff;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>穹游 · 环球听报导航</title>
+<style>
+    /* ---- 基础背景与全局 ---- */
+    body {
+        margin: 0; padding: 0; font-family: "Segoe UI", "PingFang SC", sans-serif;
+        background: #050508; color: #e0e0e0; overflow-x: hidden;
+    }
+
+    /* ---- 雕刻级磨砂玻璃 ---- */
+    .glass {
+        backdrop-filter: blur(18px) saturate(120%); -webkit-backdrop-filter: blur(18px);
+        background: rgba(15, 15, 25, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* ---- 顶部标题 ---- */
+    .header {
+        position: fixed; top: 0; left: 0; width: 100%; padding: 20px 0;
+        text-align: center; font-size: 24px; font-weight: 800; letter-spacing: 2px;
+        z-index: 100; border-bottom: 1px solid rgba(138, 166, 255, 0.2);
+    }
+    .header span { color: #8AA6FF; }
+
+    /* ---- 主容器 ---- */
+    .container {
+        max-width: 1200px; margin: 80px auto 60px; padding: 20px;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    /* ---- 卡片核心样式 ---- */
+    .card {
+        padding: 24px; border-radius: 20px; position: relative; overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    /* 雕刻级：悬停浮雕效果 */
+    .card:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 0 30px rgba(138, 166, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        border-color: rgba(138, 166, 255, 0.5);
+    }
+    /* 雕刻级：扫光高光 */
+    .card::after {
+        content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(120deg, transparent 30%, rgba(138, 166, 255, 0.1) 50%, transparent 70%);
+        transition: all 0.8s ease; opacity: 0;
+    }
+    .card:hover::after { opacity: 1; left: 100%; }
+
+    .card-title {
+        font-size: 18px; font-weight: 700; margin-bottom: 20px; color: #fff;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .card-title::before { content: ""; display: inline-block; width: 4px; height: 24px; background: #8AA6FF; border-radius: 2px; }
+
+    /* ---- 链接样式 ---- */
+    .item {
+        display: block; padding: 12px 16px; margin: 10px 0; border-radius: 14px;
+        color: #ccc; text-decoration: none; font-size: 15px;
+        transition: all 0.2s; position: relative;
+        border: 1px solid transparent;
+    }
+    /* 雕刻级：按压反馈 */
+    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.2); }
+    .item:hover {
+        color: #8AA6FF; border-color: rgba(138, 166, 255, 0.3);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    /* ---- 播放控制条 ---- */
+    .player-bar {
+        position: fixed; bottom: 0; left: 0; width: 100%; padding: 18px 20px;
+        display: flex; align-items: center; gap: 15px; z-index: 100;
+    }
+    .btn {
+        padding: 12px 24px; border-radius: 12px; border: 1px solid #8AA6FF;
+        background: rgba(138, 166, 255, 0.1); color: #fff; cursor: pointer;
+        transition: all 0.2s; font-weight: 600;
+    }
+    .btn:hover { background: rgba(138, 166, 255, 0.3); }
+    .status { color: #888; font-size: 14px; }
+</style>
 </head>
+
 <body>
 
-<div class="search-box">
-    <input type="text" value="实用应用导航" readonly>
-</div>
+<div class="header">穹游 · 环球<span>听报</span>导航</div>
 
-<!-- 银行大全 -->
-<div class="section">
-    <div class="title">银行大全</div>
-    <div class="grid">
-        <button class="item">农业银行</button>
-        <button class="item">中国银行</button>
-        <button class="item">工商银行</button>
-        <button class="item">交通银行</button>
-        <button class="item">招商银行</button>
-        <button class="item">兴业银行</button>
-        <button class="item">浦发银行</button>
-        <button class="item">光大银行</button>
-        <button class="item">广发银行</button>
-        <button class="item">平安银行</button>
-        <button class="item">华夏银行</button>
-        <button class="item">民生银行</button>
+<div class="container">
+    <!-- 国内核心 -->
+    <div class="card glass">
+        <div class="card-title">🏛️ 权威央媒</div>
+        <a class="item glass" href=" " target="_blank">新华网 · 全媒资</a >
+        <a class="item glass" href="https://tv.cctv.com" target="_blank">央视网 · 视频</a >
+        <a class="item glass" href="https://www.people.com.cn" target="_blank">人民网 · 要闻</a >
+        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">中国日报 · 国际</a >
+    </div>
+
+    <!-- 环球资讯 -->
+    <div class="card glass">
+        <div class="card-title">🌏 环球视野</div>
+        <a class="item glass" href="https://www.huanqiu.com" target="_blank">环球网 · 全球</a >
+        <a class="item glass" href="https://www.reuters.com" target="_blank">路透社 · 全球</a >
+        <a class="item glass" href="https://www.bbc.com" target="_blank">BBC · 国际</a >
+        <a class="item glass" href="https://www.dw.com" target="_blank">德国之声 · 多媒</a >
+    </div>
+
+    <!-- 视频专区 -->
+    <div class="card glass">
+        <div class="card-title">🎬 高清视频</div>
+        <a class="item glass" href="https://doc.cctv.com" target="_blank">央视纪录片 · 深度</a >
+        <a class="item glass" href="https://www.1905.com" target="_blank">1905电影网 · 院线</a >
+        <a class="item glass" href="https://www.ted.com" target="_blank">TED · 公开课</a >
+        <a class="item glass" href="https://www.bbc.com/tv" target="_blank">BBC · 纪录片</a >
+    </div>
+
+    <!-- 音乐与阅读 -->
+    <div class="card glass">
+        <div class="card-title">🎵 书影音</div>
+        <a class="item glass" href="https://tonzhon.com" target="_blank">铜钟音乐 · 免费</a >
+        <a class="item glass" href="https://gutenberg.org" target="_blank">古腾堡 · 公版书</a >
+        <a class="item glass" href="https://shuge.org" target="_blank">书格 · 古籍</a >
+        <a class="item glass" href="https://pixabay.com/music" target="_blank">Pixabay · 配乐</a >
+    </div>
+
+    <!-- 学习科研 -->
+    <div class="card glass">
+        <div class="card-title">🎓 智慧学习</div>
+        <a class="item glass" href="https://www.icourse163.org" target="_blank">中国大学MOOC</a >
+        <a class="item glass" href="https://ocw.mit.edu" target="_blank">MIT 公开课</a >
+        <a class="item glass" href="https://xuetangx.com" target="_blank">学堂在线</a >
+        <a class="item glass" href="https://www.smartedu.cn" target="_blank">国家高教平台</a >
+    </div>
+
+    <!-- 素材工具 -->
+    <div class="card glass">
+        <div class="card-title">🖼️ 素材工具</div>
+        <a class="item glass" href="https://www.pexels.com" target="_blank">Pexels · 高清</a >
+        <a class="item glass" href="https://unsplash.com" target="_blank">Unsplash · 壁纸</a >
+        <a class="item glass" href="https://www.videvo.net" target="_blank">Videvo · 视频</a >
+        <a class="item glass" href="https://pluto.tv" target="_blank">Pluto TV · 直播</a >
     </div>
 </div>
 
-<!-- 信用卡专属 -->
-<div class="section">
-    <div class="title">信用卡专属</div>
-    <div class="grid">
-        <button class="item">建行生活</button>
-        <button class="item">农银生活</button>
-        <button class="item">中国银行信用卡</button>
-        <button class="item">掌上生活</button>
-        <button class="item">动卡空间</button>
-        <button class="item">发现精彩</button>
-    </div>
+<!-- 播放控制区 -->
+<div class="player-bar glass">
+    <button class="btn" onclick="togglePlay()">▶ 自动听报</button>
+    <span class="status" id="status">状态：加载中...</span>
 </div>
 
-<!-- 汽车平台 -->
-<div class="section">
-    <div class="title">汽车平台</div>
-    <div class="grid">
-        <button class="item">懂车帝</button>
-        <button class="item">汽车之家</button>
-        <button class="item">易车网</button>
-    </div>
-</div>
-
-<!-- 企业查询 -->
-<div class="section">
-    <div class="title">企业查询</div>
-    <div class="grid">
-        <button class="item">企查查</button>
-        <button class="item">天眼查</button>
-        <button class="item">爱企查</button>
-    </div>
-</div>
-
-<!-- 地图导航 -->
-<div class="section">
-    <div class="title">地图导航</div>
-    <div class="grid">
-        <button class="item">高德地图</button>
-        <button class="item">百度地图</button>
-        <button class="item">腾讯地图</button>
-    </div>
-</div>
-
-<!-- 搜索资讯 -->
-<div class="section">
-    <div class="title">搜索资讯</div>
-    <div class="grid">
-        <button class="item">百度搜索</button>
-        <button class="item">必应搜索</button>
-        <button class="item">搜狗搜索</button>
-        <button class="item">今日头条</button>
-        <button class="item">网易新闻</button>
-        <button class="item">环球网</button>
-    </div>
-</div>
-
-<!-- 游戏直播 -->
-<div class="section">
-    <div class="title">游戏直播</div>
-    <div class="grid">
-        <button class="item">腾讯游戏</button>
-        <button class="item">网易游戏</button>
-        <button class="item">4399小游戏</button>
-        <button class="item">虎牙直播</button>
-        <button class="item">斗鱼直播</button>
-        <button class="item">哔哩哔哩</button>
-    </div>
-</div>
-
-<!-- 音乐平台 -->
-<div class="section">
-    <div class="title">音乐平台</div>
-    <div class="grid">
-        <button class="item">网易云音乐</button>
-        <button class="item">QQ音乐</button>
-        <button class="item">酷狗音乐</button>
-        <button class="item">酷我音乐</button>
-        <button class="item">咪咕音乐</button>
-        <button class="item">全民K歌</button>
-    </div>
-</div>
-
-<!-- 国家政务服务 6个 已替换去掉信访局 -->
-<div class="section">
-    <div class="title">国家政务服务</div>
-    <div class="grid">
-        <button class="item">国家政务服务平台</button>
-        <button class="item">中国政府网</button>
-        <button class="item">公安部政务服务</button>
-        <button class="item">人社政务服务</button>
-        <button class="item">全国12315平台</button>
-        <button class="item">税务总局电子税务局</button>
-    </div>
-</div>
-
-<!-- 视频影视 -->
-<div class="section">
-    <div class="title">视频影视</div>
-    <div class="grid">
-        <button class="item">腾讯视频</button>
-        <button class="item">爱奇艺</button>
-        <button class="item">优酷视频</button>
-        <button class="item">芒果TV</button>
-        <button class="item">西瓜视频</button>
-        <button class="item">B站</button>
-    </div>
-</div>
-
-<!-- 生活服务 -->
-<div class="section">
-    <div class="title">生活服务</div>
-    <div class="grid">
-        <button class="item">美团</button>
-        <button class="item">饿了么</button>
-        <button class="item">大众点评</button>
-        <button class="item">携程旅行</button>
-        <button class="item">去哪儿旅行</button>
-        <button class="item">飞猪旅行</button>
-        <button class="item">58同城</button>
-        <button class="item">安居客</button>
-        <button class="item">贝壳找房</button>
-    </div>
-</div>
+<!-- 隐藏的音频上下文 -->
+<audio id="audio" loop>
 
 <script>
-const link = {
-    "农业银行":"https://www.abchina.com",
-    "中国银行":"https://www.boc.cn",
-    "工商银行":"https://www.icbc.com.cn",
-    "交通银行":"https://www.bankcomm.com",
-    "招商银行":"https://www.cmbchina.com",
-    "兴业银行":"https://www.cib.com.cn",
-    "浦发银行":"https://www.spdb.com.cn",
-    "光大银行":"https://www.cebbank.com",
-    "广发银行":"https://www.cgbchina.com.cn",
-    "平安银行":"https://bank.pingan.com",
-    "华夏银行":"https://www.hxb.com.cn",
-    "民生银行":"https://www.cmbc.com.cn",
+const audio = document.getElementById('audio');
+const status = document.getElementById('status');
+const synth = window.speechSynthesis;
+let isPlaying = false;
 
-    "建行生活":"https://life.ccb.com",
-    "农银生活":"https://e.abchina.com",
-    "中国银行信用卡":"https://www.boc.cn/bcservice/bc1/",
-    "掌上生活":"https://www.cmbchina.com/personal/creditcard/cmblife/",
-    "动卡空间":"https://www.cgbchina.com.cn/xyk/dkkj/",
-    "发现精彩":"https://www.cgbchina.com.cn/xyk/fxjc/",
-
-    "懂车帝":"https://www.dongchedi.com",
-    "汽车之家":"https://www.autohome.com.cn",
-    "易车网":"https://www.yiche.com",
-
-    "企查查":"https://www.qcc.com",
-    "天眼查":"https://www.tianyancha.com",
-    "爱企查":"https://aiqicha.baidu.com",
-
-    "高德地图":"https://ditu.amap.com",
-    "百度地图":"https://map.baidu.com",
-    "腾讯地图":"https://map.qq.com",
-
-    "百度搜索":"https://www.baidu.com",
-    "必应搜索":"https://www.bing.com",
-    "搜狗搜索":"https://www.sogou.com",
-    "今日头条":"https://www.toutiao.com",
-    "网易新闻":"https://www.163.com/news",
-    "环球网":"https://www.huanqiu.com",
-
-    "腾讯游戏":"https://game.qq.com",
-    "网易游戏":"https://game.163.com",
-    "4399小游戏":"https://www.4399.com",
-    "虎牙直播":"https://www.huya.com",
-    "斗鱼直播":"https://www.douyu.com",
-    "哔哩哔哩":"https://www.bilibili.com",
-
-    "网易云音乐":"https://music.163.com",
-    "QQ音乐":"https://y.qq.com",
-    "酷狗音乐":"https://www.kugou.com",
-    "酷我音乐":"https://www.kuwo.cn",
-    "咪咕音乐":"https://music.migu.cn",
-    "全民K歌":"https://kg.qq.com",
-
-    "腾讯视频":"https://v.qq.com",
-    "爱奇艺":"https://www.iqiyi.com",
-    "优酷视频":"https://www.youku.com",
-    "芒果TV":"https://www.mgtv.com",
-    "西瓜视频":"https://www.ixigua.com",
-    "B站":"https://www.bilibili.com",
-
-    "国家政务服务平台":"https://gjzwfw.www.gov.cn",
-    "中国政府网":"https://www.gov.cn",
-    "公安部政务服务":"https://zwfw.mps.gov.cn",
-    "人社政务服务":"https://si.12333.gov.cn",
-    "全国12315平台":"https://www.12315.cn",
-    "税务总局电子税务局":"https://etax.chinatax.gov.cn",
-
-    "美团":"https://www.meituan.com",
-    "饿了么":"https://www.ele.me",
-    "大众点评":"https://www.dianping.com",
-    "携程旅行":"https://www.ctrip.com",
-    "去哪儿旅行":"https://www.qunar.com",
-    "飞猪旅行":"https://www.fliggy.com",
-    "58同城":"https://www.58.com",
-    "安居客":"https://www.anjuke.com",
-    "贝壳找房":"https://www.ke.com"
+// 新闻数据源
+const newsSources = {
+    china: "https://www.xinhuanet.com/",
+    world: "https://www.huanqiu.com/"
 };
 
-document.querySelectorAll('.item').forEach(btn=>{
-    btn.onclick = function(){
-        let name = this.innerText;
-        if(link[name]) window.open(link[name],'_blank');
+// 极简新闻合成播报
+function speakNews() {
+    if (!synth) return;
+    
+    // 这里我们直接合成一段高质量的模拟新闻播报
+    // 为了效率，我们只播报一段核心内容，避免卡顿
+    const newsText = `各位听众，上午好。欢迎收听穹游环球听报。
+        关注新华网快讯，国家各项稳经济举措持续落地。
+        据环球网报道，国际社会密切关注全球贸易新动态。
+        更多详细内容，请点击上方链接查看详情。`;
+
+    const utterThis = new SpeechSynthesisUtterance(newsText);
+    utterThis.lang = 'zh-CN';
+    utterThis.rate = 1; // 语速
+    utterThis.pitch = 1; // 音调
+    
+    utterThis.onstart = () => { status.innerText = "状态：正在播报新闻..."; isPlaying = true; };
+    utterThis.onend = () => { 
+        if(isPlaying) {
+            // 循环播报
+            setTimeout(speakNews, 1000);
+        } else {
+            status.innerText = "状态：已暂停";
+        }
+    };
+    
+    synth.speak(utterThis);
+}
+
+function togglePlay() {
+    if (isPlaying) {
+        synth.cancel();
+        audio.pause();
+        status.innerText = "状态：已暂停";
+        isPlaying = false;
+    } else {
+        speakNews();
     }
-})
+}
+
+// 页面加载自动初始化
+window.onload = () => {
+    // 自动播放一次，访客打开即可听
+    setTimeout(() => {
+        togglePlay();
+    }, 500);
+};
 </script>
 
 </body>
