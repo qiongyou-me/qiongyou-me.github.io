@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穹游 · 环球听报导航（稳定版）</title>
+<title>穹游 · 环球听报导航</title>
 <style>
-    /* 背景 */
+    /* 🔹 全局基础样式 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-        margin: 0; padding: 0;
-        font-family: "Segoe UI", "PingFang SC", sans-serif;
-        background: #050508;
-        color: #e0e0e0;
-        overflow-x: hidden;
+        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: #050508; color: #e0e0e0;
+        overflow-x: hidden; line-height: 1.6;
     }
 
-    /* 磨砂玻璃 */
+    /* 🔹 磨砂玻璃背景（通用类） */
     .glass {
         backdrop-filter: blur(18px) saturate(120%);
         -webkit-backdrop-filter: blur(18px);
@@ -22,221 +21,194 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* 标题 */
+    /* 🔹 顶部标题栏 */
     .header {
         position: fixed; top: 0; left: 0; width: 100%;
-        padding: 20px 0;
-        text-align: center;
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        z-index: 100;
+        padding: 22px 0; text-align: center;
+        font-size: 26px; font-weight: 800;
+        letter-spacing: 2px; z-index: 100;
         border-bottom: 1px solid rgba(138, 166, 255, 0.2);
     }
     .header span { color: #8AA6FF; }
 
-    /* 容器 */
+    /* 🔹 主容器（网格布局） */
     .container {
-        max-width: 1200px;
-        margin: 80px auto 60px;
-        padding: 20px;
-        display: grid;
+        max-width: 1200px; margin: 90px auto 80px;
+        padding: 20px; display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
     }
 
-    /* 卡片 */
+    /* 🔹 栏目卡片 */
     .card {
-        padding: 24px;
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
+        padding: 26px; border-radius: 20px;
+        position: relative; overflow: hidden;
         transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .card:hover {
         transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 0 30px rgba(138, 166, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        box-shadow: 0 0 35px rgba(138, 166, 255, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
         border-color: rgba(138, 166, 255, 0.5);
     }
 
-    /* 扫光效果 */
+    /* 🔹 卡片扫光特效 */
     .card::after {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: linear-gradient(120deg, transparent 30%, rgba(138, 166, 255, 0.1) 50%, transparent 70%);
-        transition: all 0.8s ease;
-        opacity: 0;
+        content: ""; position: absolute; top: 0; left: 0;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent,
+                    rgba(138, 166, 255, 0.1) 50%, transparent);
+        transition: all 0.8s ease; opacity: 0;
     }
-    .card:hover::after {
-        opacity: 1;
-        left: 100%;
-    }
+    .card:hover::after { opacity: 1; left: 100%; }
 
-    /* 卡片标题 */
+    /* 🔹 卡片标题 */
     .card-title {
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        font-size: 19px; font-weight: 700; margin-bottom: 22px;
+        color: #fff; display: flex; align-items: center; gap: 12px;
     }
     .card-title::before {
-        content: "";
-        display: inline-block;
-        width: 4px;
-        height: 24px;
-        background: #8AA6FF;
-        border-radius: 2px;
+        content: ""; display: inline-block;
+        width: 5px; height: 26px; background: #8AA6FF;
+        border-radius: 3px;
     }
 
-    /* 链接 */
+    /* 🔹 链接按钮 */
     .item {
-        display: block;
-        padding: 12px 16px;
-        margin: 10px 0;
-        border-radius: 14px;
-        color: #ccc;
-        text-decoration: none;
-        font-size: 15px;
-        transition: all 0.2s;
+        display: block; padding: 14px 18px; margin: 12px 0;
+        border-radius: 14px; color: #ccc; text-decoration: none;
+        font-size: 15px; transition: all 0.2s;
         border: 1px solid transparent;
     }
-    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.2); }
+    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.15); }
     .item:hover {
-        color: #8AA6FF;
-        border-color: rgba(138, 166, 255, 0.3);
+        color: #8AA6FF; border-color: rgba(138, 166, 255, 0.3);
+        background: rgba(138, 166, 255, 0.08);
     }
 
-    /* 播放条 */
+    /* 🔹 底部播放控制栏 */
     .player-bar {
-        position: fixed;
-        bottom: 0; left: 0;
-        width: 100%;
-        padding: 18px 20px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        z-index: 100;
+        position: fixed; bottom: 0; left: 0; width: 100%;
+        padding: 20px; display: flex; align-items: center; gap: 18px;
+        z-index: 100; border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    /* 🔹 播放按钮 */
     .btn {
-        padding: 12px 24px;
-        border-radius: 12px;
-        border: 1px solid #8AA6FF;
-        background: rgba(138, 166, 255, 0.1);
-        color: #fff;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-weight: 600;
+        padding: 14px 28px; border-radius: 14px;
+        border: 1px solid #8AA6FF; background: rgba(138, 166, 255, 0.1);
+        color: #fff; cursor: pointer; transition: all 0.2s;
+        font-weight: 600; font-size: 16px;
     }
     .btn:hover { background: rgba(138, 166, 255, 0.3); }
+    .btn:active { transform: scale(0.95); }
 </style>
 </head>
 
 <body>
 
+<!-- 顶部标题 -->
 <div class="header">穹游 · 环球<span>听报</span>导航</div>
 
+<!-- 主内容区 -->
 <div class="container">
 
-    <!-- 国内权威媒体 -->
+    <!-- 🏛️ 国内权威媒体 -->
     <div class="card glass">
         <div class="card-title">🏛️ 权威央媒</div>
-        <a class="item glass" href=" " target="_blank">新华网 · 全媒资</a >
-        <a class="item glass" href="https://tv.cctv.com" target="_blank">央视网 · 视频</a >
-        <a class="item glass" href="https://www.people.com.cn" target="_blank">人民网 · 要闻</a >
-        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">中国日报 · 国际</a >
+        <a class="item glass" href=" " target="_blank">📰 新华网 · 全媒资</a >
+        <a class="item glass" href="https://tv.cctv.com" target="_blank">📺 央视网 · 视频</a >
+        <a class="item glass" href="https://www.people.com.cn" target="_blank">📰 人民网 · 要闻</a >
+        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">🌍 中国日报 · 国际</a >
     </div>
 
-    <!-- 环球资讯 -->
+    <!-- 🌏 环球资讯 -->
     <div class="card glass">
         <div class="card-title">🌏 环球视野</div>
-        <a class="item glass" href="https://www.huanqiu.com" target="_blank">环球网 · 全球</a >
-        <a class="item glass" href="https://www.reuters.com" target="_blank">路透社 · 全球</a >
-        <a class="item glass" href="https://www.bbc.com" target="_blank">BBC · 国际</a >
-        <a class="item glass" href="https://www.dw.com" target="_blank">德国之声 · 多媒</a >
+        <a class="item glass" href="https://www.huanqiu.com" target="_blank">📰 环球网 · 全球</a >
+        <a class="item glass" href="https://www.reuters.com" target="_blank">🌍 路透社 · 全球</a >
+        <a class="item glass" href="https://www.bbc.com" target="_blank">🌍 BBC · 国际</a >
+        <a class="item glass" href="https://www.dw.com" target="_blank">🌍 德国之声 · 多媒</a >
     </div>
 
-    <!-- 视频专区 -->
+    <!-- 🎬 视频专区 -->
     <div class="card glass">
         <div class="card-title">🎬 高清视频</div>
-        <a class="item glass" href="https://doc.cctv.com" target="_blank">央视纪录片 · 深度</a >
-        <a class="item glass" href="https://www.1905.com" target="_blank">1905电影网 · 院线</a >
-        <a class="item glass" href="https://www.ted.com" target="_blank">TED · 公开课</a >
-        <a class="item glass" href="https://www.bbc.com/tv" target="_blank">BBC · 纪录片</a >
+        <a class="item glass" href="https://doc.cctv.com" target="_blank">📀 央视纪录片 · 深度</a >
+        <a class="item glass" href="https://www.1905.com" target="_blank">🎬 1905电影网 · 院线</a >
+        <a class="item glass" href="https://www.ted.com" target="_blank">🎓 TED · 公开课</a >
+        <a class="item glass" href="https://www.bbc.com/tv" target="_blank">📀 BBC · 纪录片</a >
     </div>
 
-    <!-- 音乐与阅读 -->
+    <!-- 🎵 书影音 -->
     <div class="card glass">
         <div class="card-title">🎵 书影音</div>
-        <a class="item glass" href="https://tonzhon.com" target="_blank">铜钟音乐 · 免费</a >
-        <a class="item glass" href="https://gutenberg.org" target="_blank">古腾堡 · 公版书</a >
-        <a class="item glass" href="https://shuge.org" target="_blank">书格 · 古籍</a >
-        <a class="item glass" href="https://pixabay.com/music" target="_blank">Pixabay · 配乐</a >
+        <a class="item glass" href="https://tonzhon.com" target="_blank">🎧 铜钟音乐 · 免费</a >
+        <a class="item glass" href="https://gutenberg.org" target="_blank">📖 古腾堡 · 公版书</a >
+        <a class="item glass" href="https://shuge.org" target="_blank">📀 书格 · 古籍</a >
+        <a class="item glass" href="https://pixabay.com/music" target="_blank">🎧 Pixabay · 配乐</a >
     </div>
 
-    <!-- 学习科研 -->
+    <!-- 🎓 学习科研 -->
     <div class="card glass">
         <div class="card-title">🎓 智慧学习</div>
-        <a class="item glass" href="https://www.icourse163.org" target="_blank">中国大学MOOC</a >
-        <a class="item glass" href="https://ocw.mit.edu" target="_blank">MIT 公开课</a >
-        <a class="item glass" href="https://xuetangx.com" target="_blank">学堂在线</a >
-        <a class="item glass" href="https://www.smartedu.cn" target="_blank">国家高教平台</a >
+        <a class="item glass" href="https://www.icourse163.org" target="_blank">📚 中国大学MOOC</a >
+        <a class="item glass" href="https://ocw.mit.edu" target="_blank">📚 MIT 公开课</a >
+        <a class="item glass" href="https://xuetangx.com" target="_blank">📚 学堂在线</a >
+        <a class="item glass" href="https://www.smartedu.cn" target="_blank">🏫 国家高教平台</a >
     </div>
 
 </div>
 
-<!-- 播放控制条 -->
+<!-- 播放控制区 -->
 <div class="player-bar glass">
     <button class="btn" onclick="togglePlay()">▶ 自动听报</button>
-    <span id="status" style="color: #888; font-size: 14px;">状态：未开始</span>
+    <span id="status" style="color: #888; font-size: 15px;">状态：未开始</span>
 </div>
 
-<!-- 核心：新闻广播源（绝对稳定） -->
+<!-- 🔊 音频元素（隐藏） -->
 <audio id="newsAudio" loop>
 
 <script>
-const audio = document.getElementById('newsAudio');
-const status = document.getElementById('status');
-let isPlaying = false;
+    /* 🔹 核心变量 */
+    const audio = document.getElementById('newsAudio');
+    const status = document.getElementById('status');
+    let isPlaying = false;
 
-// 👇 稳定公开新闻广播流（所有浏览器通用）
-// 央视新闻/中国之声 新闻直播流（官方直供，稳定高可用）[[(央视新闻)]](https://content-static.cctvnews.cctv.com/snow-book/index.html?f_link_type=f_linkinlinenote&flow_extra=eyJkb2NfcG9zaXRpb24iOjAsImRvY19pZCI6IjdlNTE3YThjMTUyZmZmMGEtM2NkZmVkNzNkZmVkOWMyMyIsImlubGluZV9kaXNwbGF5X3Bvc2l0aW9uIjowfQ%3D%3D&item_id=17347671621547027891 "[(央视新闻)]")
-const newsUrl = "https://alive.cctv.com/live/cctv13/index.m3u8"; // CCTV-13新闻频道直播流[[(CCTV节...)]](https://tv.cctv.cn/cctv13/?f_link_type=f_linkinlinenote&flow_extra=eyJkb2NfaWQiOiIyZDMwNzIyOGRjNDhhODBjLTQ0ZjExYmM3YTZiNjZlNzAiLCJpbmxpbmVfZGlzcGxheV9wb3NpdGlvbiI6MCwiZG9jX3Bvc2l0aW9uIjowfQ%3D%3D "[(CCTV节...)]")
+    /* 🔹 稳定新闻广播源（央视新闻频道） */
+    const newsUrl = "https://alive.cctv.com/live/cctv13/index.m3u8";
 
-function loadNews() {
-    audio.src = newsUrl;
-    audio.volume = 1.0;
-}
-
-function togglePlay() {
-    if (isPlaying) {
-        audio.pause();
-        status.innerText = "状态：已暂停";
-        isPlaying = false;
-    } else {
-        audio.play().then(() => {
-            status.innerText = "状态：正在播报新闻...";
-            isPlaying = true;
-        }).catch(err => {
-            status.innerText = "状态：播放失败，请重试";
-            console.error("播放错误：", err);
-        });
+    /* 🔹 加载新闻流 */
+    function loadNews() {
+        audio.src = newsUrl;
+        audio.volume = 1.0; // 满音量
     }
-}
 
-// 页面加载自动播放
-window.onload = () => {
-    loadNews();
-    // 为了兼容性，延迟 300ms 自动播放
-    setTimeout(() => {
-        togglePlay();
-    }, 300);
-};
+    /* 🔹 播放/暂停切换 */
+    function togglePlay() {
+        if (isPlaying) {
+            audio.pause();
+            status.innerText = "状态：已暂停";
+            isPlaying = false;
+        } else {
+            audio.play().then(() => {
+                status.innerText = "状态：正在播报新闻...";
+                isPlaying = true;
+            }).catch(err => {
+                status.innerText = "状态：播放失败，请点击按钮重试";
+                console.error("播放报错：", err);
+            });
+        }
+    }
+
+    /* 🔹 页面初始化 */
+    window.onload = () => {
+        loadNews();
+        // 为了兼容性，页面加载后自动播放一次
+        setTimeout(() => {
+            togglePlay();
+        }, 500);
+    };
 </script>
 
 </body>
