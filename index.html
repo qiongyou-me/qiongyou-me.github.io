@@ -131,7 +131,7 @@
         opacity: 0.8;
     }
 </style>
-</head>
+</body>
 <body>
 
 <div class="header glass">穹游 · 世界<span>中文报纸</span>导航</div>
@@ -141,37 +141,37 @@
     <!-- 🏛️ 国内权威报纸 -->
     <div class="card glass">
         <div class="card-title">🏛️ 国内权威</div>
-        <a class="item glass" data-audio="https://alive.cctv.com/live/cctv13/index.m3u8" target="_blank">📰 人民日报（央广同步）</a >
-        <a class="item glass" data-audio="https://audio.cnr.cn/live/xinwenwang.m3u8" target="_blank">📰 光明日报（央广新闻）</a >
-        <a class="item glass" data-audio="https://alive.cctv.com/live/cctv13/index.m3u8" target="_blank">📰 解放军报（央视同步）</a >
-        <a class="item glass" data-audio="https://audio.cnr.cn/live/rmrb.m3u8" target="_blank">📰 人民网（人民日报音频）</a >
+        <a class="item glass" href=" " target="_blank">📰 人民日报（电子版）</a >
+        <a class="item glass" href="https://www.gmw.cn" target="_blank">📰 光明日报</a >
+        <a class="item glass" href="https://www.jfjbg.cn" target="_blank">📰 解放军报</a >
+        <a class="item glass" href="https://www.people.com.cn" target="_blank">📰 人民网</a >
     </div>
 
     <!-- 🌏 全球中文视野 -->
     <div class="card glass">
         <div class="card-title">🌏 全球中文</div>
-        <a class="item glass" data-audio="https://www.zaobao.com.sg/rss/audio" target="_blank">📰 联合早报（新加坡）</a >
-        <a class="item glass" data-audio="https://alive.cctv.com/live/cctv4/index.m3u8" target="_blank">📰 人民日报海外版（央视4台）</a >
-        <a class="item glass" data-audio="https://audio.cnr.cn/live/chinadaily.m3u8" target="_blank">📰 中国日报（音频版）</a >
-        <a class="item glass" data-audio="https://alive.cctv.com/live/cctv13/index.m3u8" target="_blank">📰 凤凰网（同步央广）</a >
+        <a class="item glass" href="https://www.zaobao.com.sg" target="_blank">📰 联合早报（新加坡）</a >
+        <a class="item glass" href="https://www.haiwainet.cn" target="_blank">📰 人民日报海外版</a >
+        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">📰 中国日报（中文）</a >
+        <a class="item glass" href="https://www.ifeng.com" target="_blank">📰 凤凰网（中文）</a >
     </div>
 
     <!-- 📰 国际主流媒体中文版 -->
     <div class="card glass">
         <div class="card-title">🌍 国际中文</div>
-        <a class="item glass" data-audio="https://cn.wsj.com/audio" target="_blank">📰 华尔街日报中文版</a >
-        <a class="item glass" data-audio="https://www.ftchinese.com/audio" target="_blank">📰 FT中文网（金融时报）</a >
-        <a class="item glass" data-audio="https://cn.reuters.com/audio" target="_blank">📰 路透中文网</a >
-        <a class="item glass" data-audio="https://www.afp.com/zh/audio" target="_blank">📰 法新社中文</a >
+        <a class="item glass" href="https://cn.wsj.com" target="_blank">📰 华尔街日报中文版</a >
+        <a class="item glass" href="https://www.ftchinese.com" target="_blank">📰 FT中文网（金融时报）</a >
+        <a class="item glass" href="https://cn.reuters.com" target="_blank">📰 路透中文网</a >
+        <a class="item glass" href="https://www.afp.com/zh" target="_blank">📰 法新社中文</a >
     </div>
 
     <!-- 📚 深度阅读 -->
     <div class="card glass">
         <div class="card-title">📚 深度阅读</div>
-        <a class="item glass" data-audio="https://www.cyol.com/audio" target="_blank">📰 中国青年报</a >
-        <a class="item glass" data-audio="https://www.stdaily.com/audio" target="_blank">📰 科技日报</a >
-        <a class="item glass" data-audio="https://www.workercn.cn/audio" target="_blank">📰 工人日报</a >
-        <a class="item glass" data-audio="https://www.farmer.com.cn/audio" target="_blank">📰 农民日报</a >
+        <a class="item glass" href="https://www.cyol.com" target="_blank">📰 中国青年报</a >
+        <a class="item glass" href="https://www.stdaily.com" target="_blank">📰 科技日报</a >
+        <a class="item glass" href="https://www.workercn.cn" target="_blank">📰 工人日报</a >
+        <a class="item glass" href="https://www.farmer.com.cn" target="_blank">📰 农民日报</a >
     </div>
 
 </div>
@@ -180,9 +180,9 @@
 <div class="floating-player glass" id="floatingPlayer">
     <div class="player-drag-handle glass" id="playerHandle">
         <div class="player-content">
-            <div class="player-title" id="playerSource">选择报纸播放</div>
+            <div class="player-title" id="playerSource">拖动任意位置</div>
             <button class="player-btn" id="playerBtn">▶</button>
-            <div class="player-status" id="playerStatus">状态：待机</div>
+            <div class="player-status" id="playerStatus">点击播放</div>
         </div>
     </div>
 </div>
@@ -207,21 +207,14 @@
 
     // 🔹 初始化播放器
     function initPlayer() {
-        // 设置默认音频源
+        // 设置默认音频源（央视新闻）
         currentAudioUrl = "https://alive.cctv.com/live/cctv13/index.m3u8";
         audio.src = currentAudioUrl;
         playerSource.innerText = "默认：央视新闻";
     }
 
     // 🔹 播放控制核心
-    function togglePlay(newUrl) {
-        // 如果有新链接且不同，切换音频源
-        if (newUrl && newUrl !== currentAudioUrl) {
-            currentAudioUrl = newUrl;
-            audio.src = newUrl;
-            playerSource.innerText = getSourceName(newUrl);
-        }
-
+    function togglePlay() {
         if (!currentAudioUrl) return;
 
         if (isPlaying) {
@@ -239,16 +232,6 @@
                 console.error("播放错误：", err);
             });
         }
-    }
-
-    // 🔹 根据链接获取显示名称
-    function getSourceName(url) {
-        if (url.includes("cctv")) return "央视新闻";
-        if (url.includes("zaobao")) return "联合早报";
-        if (url.includes("wsj")) return "华尔街日报";
-        if (url.includes("ftchinese")) return "FT中文网";
-        if (url.includes("reuters")) return "路透中文";
-        return "未知来源";
     }
 
     // 🔹 拖拽功能实现
@@ -284,22 +267,10 @@
         player.style.cursor = 'move';
     }
 
-    // 🔹 监听所有报纸链接点击事件
-    function initLinkListeners() {
-        document.querySelectorAll('.item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault(); // 阻止默认跳转（如需打开新页请注释此行）
-                const audioUrl = item.getAttribute('data-audio');
-                togglePlay(audioUrl); // 切换并播放
-            });
-        });
-    }
-
     // 🔹 页面加载完成后初始化
     window.onload = () => {
         initPlayer();
         initDrag();
-        initLinkListeners();
     };
 </script>
 
