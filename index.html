@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>穹游 · 世界中文报纸导航</title>
+<title>穹游 · 全球顶级直达导航（最终版）</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -26,253 +26,125 @@
     }
     .header span { color: #8AA6FF; }
     .container {
-        max-width: 1200px; margin: 90px auto 120px;
+        max-width: 1400px; margin: 120px auto 80px;
         padding: 20px; display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 28px;
     }
     .card {
-        padding: 26px; border-radius: 20px;
+        padding: 30px; border-radius: 24px;
         position: relative; overflow: hidden;
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .card:hover {
-        transform: translateY(-6px) scale(1.01);
-        box-shadow: 0 0 35px rgba(138, 166, 255, 0.25),
-                    inset 0 1px 0 rgba(255,255,255,0.1);
-        border-color: rgba(138, 166, 255, 0.5);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 0 45px rgba(138, 166, 255, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        border-color: rgba(138, 166, 255, 0.6);
     }
     .card::after {
         content: ""; position: absolute; top: 0; left: 0;
         width: 50%; height: 100%;
         background: linear-gradient(90deg, transparent,
-                    rgba(138, 166, 255, 0.1) 50%, transparent);
-        transition: all 0.8s ease; opacity: 0;
+                    rgba(138, 166, 255, 0.12) 50%, transparent);
+        transition: all 0.9s ease; opacity: 0;
     }
     .card:hover::after { opacity: 1; left: 100%; }
     .card-title {
-        font-size: 19px; font-weight: 700; margin-bottom: 22px;
-        color: #fff; display: flex; align-items: center; gap: 12px;
+        font-size: 22px; font-weight: 700; margin-bottom: 28px;
+        color: #fff; display: flex; align-items: center; gap: 14px;
     }
     .card-title::before {
         content: ""; display: inline-block;
-        width: 5px; height: 26px; background: #8AA6FF;
-        border-radius: 3px;
+        width: 6px; height: 28px; background: #8AA6FF;
+        border-radius: 4px;
     }
     .item {
-        display: block; padding: 14px 18px; margin: 12px 0;
-        border-radius: 14px; color: #ccc; text-decoration: none;
-        font-size: 15px; transition: all 0.2s;
-        border: 1px solid transparent;
-        cursor: pointer; /* 明确指针 */
+        display: block; padding: 18px 22px; margin: 16px 0;
+        border-radius: 18px; color: #ccc;
+        text-decoration: none; font-size: 16px;
+        transition: all 0.25s; border: 1px solid transparent;
     }
-    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.15); }
+    .item:active { transform: scale(0.97); background: rgba(138, 166, 255, 0.18); }
     .item:hover {
-        color: #8AA6FF; border-color: rgba(138, 166, 255, 0.3);
-        background: rgba(138, 166, 255, 0.08);
-    }
-
-    /* 🔹 悬浮播放器核心样式 */
-    .floating-player {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 9999; /* 最高层级 */
-        transition: all 0.3s ease;
-    }
-    .player-drag-handle {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: move; /* 拖动图标 */
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        box-shadow: 0 10px 30px rgba(138, 166, 255, 0.3),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    .player-drag-handle:hover {
-        transform: scale(1.05);
-        box-shadow: 0 15px 40px rgba(138, 166, 255, 0.4),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-    .player-content {
-        text-align: center;
-        color: white;
-    }
-    .player-title {
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-    .player-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(138, 166, 255, 0.2);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
-    .player-btn:hover {
-        background: rgba(138, 166, 255, 0.4);
-    }
-    .player-status {
-        font-size: 12px;
-        margin-top: 5px;
-        opacity: 0.8;
+        color: #8AA6FF; border-color: rgba(138, 166, 255, 0.4);
+        background: rgba(138, 166, 255, 0.1);
     }
 </style>
-</body>
+</head>
 <body>
 
-<div class="header glass">穹游 · 世界<span>中文报纸</span>导航</div>
+<div class="header glass">穹游 · 全球顶级直达导航 <span>（无需注册，即开即用）</span></div>
 
 <div class="container">
 
-    <!-- 🏛️ 国内权威报纸 -->
+    <!-- 1. 🗞️ 全球顶级报纸 & 中文资讯站 -->
     <div class="card glass">
-        <div class="card-title">🏛️ 国内权威</div>
-        <a class="item glass" href=" " target="_blank">📰 人民日报（电子版）</a >
-        <a class="item glass" href="https://www.gmw.cn" target="_blank">📰 光明日报</a >
-        <a class="item glass" href="https://www.jfjbg.cn" target="_blank">📰 解放军报</a >
-        <a class="item glass" href="https://www.people.com.cn" target="_blank">📰 人民网</a >
+        <div class="card-title">📰 全球报纸 & 中文资讯</div>
+        <a class="item" href=" " target="_blank">📄 人民日报（国际版）</a >
+        <a class="item" href="https://www.zaobao.com.sg" target="_blank">📄 联合早报（全球华文权威）</a >
+        <a class="item" href="https://www.chinadaily.com.cn" target="_blank">📄 中国日报（全球发行）</a >
+        <a class="item" href="https://www.gmw.cn" target="_blank">📄 光明网（深度报道）</a >
+        <a class="item" href="https://www.ftchinese.com" target="_blank">📄 FT中文网（国际财经视野）</a >
+        <a class="item" href="https://www.reuters.com/resources" target="_blank">📄 路透社中文（全球资讯）</a >
     </div>
 
-    <!-- 🌏 全球中文视野 -->
+    <!-- 2. 🎬 全球影视 & 娱乐资源（直达无广告） -->
     <div class="card glass">
-        <div class="card-title">🌏 全球中文</div>
-        <a class="item glass" href="https://www.zaobao.com.sg" target="_blank">📰 联合早报（新加坡）</a >
-        <a class="item glass" href="https://www.haiwainet.cn" target="_blank">📰 人民日报海外版</a >
-        <a class="item glass" href="https://www.chinadaily.com.cn" target="_blank">📰 中国日报（中文）</a >
-        <a class="item glass" href="https://www.ifeng.com" target="_blank">📰 凤凰网（中文）</a >
+        <div class="card-title">🎬 全球影视 & 娱乐</div>
+        <a class="item" href="https://www.imdb.com" target="_blank">🎬 IMDb（全球影视库第一）</a >
+        <a class="item" href="https://www.rottentomatoes.com" target="_blank">🎬 烂番茄（全球影评权威）</a >
+        <a class="item" href="https://www.themoviedb.org" target="_blank">🎬 TMDB（全球影视数据第一）</a >
+        <a class="item" href="https://www.douban.com" target="_blank">🎬 豆瓣（中文影视权威）</a >
+        <a class="item" href="https://www.youku.com" target="_blank">🎬 优酷（国内直连）</a >
+        <a class="item" href="https://v.qq.com" target="_blank">🎬 腾讯视频（国内直连）</a >
     </div>
 
-    <!-- 📰 国际主流媒体中文版 -->
+    <!-- 3. 🎵 全球音乐 & 创作资源 -->
     <div class="card glass">
-        <div class="card-title">🌍 国际中文</div>
-        <a class="item glass" href="https://cn.wsj.com" target="_blank">📰 华尔街日报中文版</a >
-        <a class="item glass" href="https://www.ftchinese.com" target="_blank">📰 FT中文网（金融时报）</a >
-        <a class="item glass" href="https://cn.reuters.com" target="_blank">📰 路透中文网</a >
-        <a class="item glass" href="https://www.afp.com/zh" target="_blank">📰 法新社中文</a >
+        <div class="card-title">🎵 全球音乐 & 创作</div>
+        <a class="item" href="https://music.163.com" target="_blank">🎶 网易云音乐（中文原创第一）</a >
+        <a class="item" href="https://y.qq.com" target="_blank">🎶 QQ音乐（华语曲库最全）</a >
+        <a class="item" href="https://www.kuwo.cn" target="_blank">🎶 酷我音乐（直连无广告）</a >
+        <a class="item" href="https://music.youtube.com" target="_blank">🎶 YouTube Music（全球最大）</a >
+        <a class="item" href="https://www.spotify.com" target="_blank">🎶 Spotify（全球流媒体第一）</a >
+        <a class="item" href="https://soundcloud.com" target="_blank">🎶 SoundCloud（全球创作音乐）</a >
     </div>
 
-    <!-- 📚 深度阅读 -->
+    <!-- 4. 🧩 全球工具 & 设计 & 游戏资源 -->
     <div class="card glass">
-        <div class="card-title">📚 深度阅读</div>
-        <a class="item glass" href="https://www.cyol.com" target="_blank">📰 中国青年报</a >
-        <a class="item glass" href="https://www.stdaily.com" target="_blank">📰 科技日报</a >
-        <a class="item glass" href="https://www.workercn.cn" target="_blank">📰 工人日报</a >
-        <a class="item glass" href="https://www.farmer.com.cn" target="_blank">📰 农民日报</a >
+        <div class="card-title">🧩 全球工具 & 创意 & 游戏</div>
+        <a class="item" href="https://itch.io" target="_blank">🎮 Itch.io（独立游戏第一站）</a >
+        <a class="item" href="https://store.steampowered.com" target="_blank">🎮 Steam（全球游戏库第一）</a >
+        <a class="item" href="https://www.epicgames.com" target="_blank">🎮 Epic Games（免费游戏权威）</a >
+        <a class="item" href="https://www.roblox.com" target="_blank">🎮 Roblox（全球创作游戏平台）</a >
+        <a class="item" href="https://www.codecademy.com" target="_blank">💻 Codecademy（编程学习第一）</a >
+        <a class="item" href="https://www.freecodecamp.org" target="_blank">💻 freeCodeCamp（公益编程教育）</a >
+    </div>
+
+    <!-- 5. 📚 全球学习 & 语言教育资源 -->
+    <div class="card glass">
+        <div class="card-title">📚 全球学习 & 语言教育</div>
+        <a class="item" href="https://www.britannica.com" target="_blank">📖 大英百科全书（全球知识权威）</a >
+        <a class="item" href="https://www.khanacademy.org" target="_blank">📚 可汗学院（全球教育第一）</a >
+        <a class="item" href="https://www.duolingo.com" target="_blank">📱 多邻国（语言学习第一）</a >
+        <a class="item" href="https://www.memrise.com" target="_blank">📱 Memrise（记忆型语言学习）</a >
+        <a class="item" href="https://www.coursera.org" target="_blank">🎓 Coursera（全球大学课程第一）</a >
+        <a class="item" href="https://www.edx.org" target="_blank">🎓 edX（顶尖高校公开课）</a >
+    </div>
+
+    <!-- 6. 🌐 全球开源 & 技术资源 -->
+    <div class="card glass">
+        <div class="card-title">🌐 全球开源 & 技术社区</div>
+        <a class="item" href="https://www.github.com" target="_blank">💻 GitHub（全球代码第一库）</a >
+        <a class="item" href="https://www.stackoverflow.com" target="_blank">💻 Stack Overflow（程序员问答第一）</a >
+        <a class="item" href="https://www.dev.to" target="_blank">💻 DEV.to（全球开发者社区）</a >
+        <a class="item" href="https://www.codepen.io" target="_blank">💻 CodePen（前端创作与展示）</a >
+        <a class="item" href="https://www.freebsd.org" target="_blank">🌍 FreeBSD（全球开源系统权威）</a >
+        <a class="item" href="https://www.apache.org" target="_blank">🌍 Apache（开源软件第一）</a >
     </div>
 
 </div>
-
-<!-- 🔊 全局悬浮播放器 -->
-<div class="floating-player glass" id="floatingPlayer">
-    <div class="player-drag-handle glass" id="playerHandle">
-        <div class="player-content">
-            <div class="player-title" id="playerSource">拖动任意位置</div>
-            <button class="player-btn" id="playerBtn">▶</button>
-            <div class="player-status" id="playerStatus">点击播放</div>
-        </div>
-    </div>
-</div>
-
-<!-- 隐藏的音频核心 -->
-<audio id="globalAudio" loop>
-
-<script>
-    // 🔹 播放器核心变量
-    const audio = document.getElementById('globalAudio');
-    const player = document.getElementById('floatingPlayer');
-    const handle = document.getElementById('playerHandle');
-    const playerBtn = document.getElementById('playerBtn');
-    const playerSource = document.getElementById('playerSource');
-    const playerStatus = document.getElementById('playerStatus');
-    
-    let isPlaying = false;
-    let currentAudioUrl = "";
-    let isDragging = false;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    // 🔹 初始化播放器
-    function initPlayer() {
-        // 设置默认音频源（央视新闻）
-        currentAudioUrl = "https://alive.cctv.com/live/cctv13/index.m3u8";
-        audio.src = currentAudioUrl;
-        playerSource.innerText = "默认：央视新闻";
-    }
-
-    // 🔹 播放控制核心
-    function togglePlay() {
-        if (!currentAudioUrl) return;
-
-        if (isPlaying) {
-            audio.pause();
-            playerBtn.innerText = "▶";
-            playerStatus.innerText = "状态：已暂停";
-            isPlaying = false;
-        } else {
-            audio.play().then(() => {
-                playerBtn.innerText = "⏸️";
-                playerStatus.innerText = "状态：正在播放";
-                isPlaying = true;
-            }).catch(err => {
-                playerStatus.innerText = "状态：播放失败";
-                console.error("播放错误：", err);
-            });
-        }
-    }
-
-    // 🔹 拖拽功能实现
-    function initDrag() {
-        handle.addEventListener('mousedown', startDrag);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', stopDrag);
-    }
-
-    function startDrag(e) {
-        isDragging = true;
-        offsetX = e.clientX - player.getBoundingClientRect().left;
-        offsetY = e.clientY - player.getBoundingClientRect().top;
-        player.style.cursor = 'grabbing';
-    }
-
-    function drag(e) {
-        if (!isDragging) return;
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
-        
-        // 限制在视口内
-        const maxX = window.innerWidth - player.offsetWidth;
-        const maxY = window.innerHeight - player.offsetHeight;
-        
-        player.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
-        player.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
-        player.style.right = 'auto'; // 取消right定位
-    }
-
-    function stopDrag() {
-        isDragging = false;
-        player.style.cursor = 'move';
-    }
-
-    // 🔹 页面加载完成后初始化
-    window.onload = () => {
-        initPlayer();
-        initDrag();
-    };
-</script>
 
 </body>
 </html>
